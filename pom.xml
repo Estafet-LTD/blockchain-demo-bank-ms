@@ -1,0 +1,25 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.estafet.blockchain.demo</groupId>
+	<artifactId>estafet-blockchain-demo-bank-ms</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<parent>
+		<groupId>com.estafet.openshift.boost</groupId>
+		<artifactId>estafet-openshift-boost-springboot-db</artifactId>
+		<version>1.0.0</version>
+		<relativePath />
+	</parent>
+
+	<properties>
+		<microservice>bank-ms</microservice>
+		<entity.package>com.estafet.blockchain.demo.ms.bank.model</entity.package>
+	</properties>
+
+	<scm>
+		<connection>scm:git:https://github.com/Estafet-LTD/estafet-blockchain-demo-bank-ms.git</connection>
+		<developerConnection>scm:git:https://github.com/Estafet-LTD/estafet-blockchain-demo-bank-ms.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+</project>
