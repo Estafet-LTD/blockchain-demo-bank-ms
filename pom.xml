@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.estafet.openshift.boost</groupId>
 		<artifactId>estafet-openshift-boost-springboot-db</artifactId>
-		<version>1.0.3</version>
+		<version>1.0.4</version>
 		<relativePath />
 	</parent>
 
@@ -22,4 +22,11 @@
 		<tag>HEAD</tag>
 	</scm>
 
+	<dependencies>
+		<dependency>
+			<groupId>com.estafet.blockchain.demo</groupId>
+			<artifactId>estafet-blockchain-demo-commons-lib</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+	</dependencies>
 </project>
