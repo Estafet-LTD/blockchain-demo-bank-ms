@@ -6,11 +6,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import com.estafet.demo.commons.lib.event.AbstractMessageEvent;
-
 @Entity
 @Table(name = "MESSAGE_EVENT")
-public class MessageEvent extends AbstractMessageEvent {
+public class MessageEvent {
 
 	@Id
 	@Column(name = "TOPIC_ID")
