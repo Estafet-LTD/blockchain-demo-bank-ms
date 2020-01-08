@@ -13,7 +13,7 @@
 
 	<properties>
 		<microservice>bank-ms</microservice>
-		<entity.package>com.estafet.blockchain.demo.ms.bank.model</entity.package>
+		<entity.package>com.estafet.blockchain.demo.bank.ms.model</entity.package>
 	</properties>
 
 	<scm>

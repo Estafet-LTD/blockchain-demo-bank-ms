@@ -1,4 +1,4 @@
-package com.estafet.blockchain.demo.ms.bank.event;
+package com.estafet.blockchain.demo.bank.ms.event;
 
 import javax.persistence.OptimisticLockException;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.estafet.blockchain.demo.ms.bank.model.MessageEvent;
+import com.estafet.blockchain.demo.bank.ms.model.MessageEvent;
 
 @Component
 public class MessageEventHandler {

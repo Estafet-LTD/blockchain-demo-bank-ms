@@ -1,4 +1,4 @@
-package com.estafet.blockchain.demo.ms.bank.model;
+package com.estafet.blockchain.demo.bank.ms.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

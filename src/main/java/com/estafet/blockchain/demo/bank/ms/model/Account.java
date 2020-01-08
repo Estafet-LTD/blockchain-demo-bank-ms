@@ -1,4 +1,4 @@
-package com.estafet.blockchain.demo.ms.bank.model;
+package com.estafet.blockchain.demo.bank.ms.model;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package com.estafet.blockchain.demo.ms.bank.event;
+package com.estafet.blockchain.demo.bank.ms.event;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -6,7 +6,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.estafet.blockchain.demo.ms.bank.model.MessageEvent;
+import com.estafet.blockchain.demo.bank.ms.model.MessageEvent;
 
 @Repository
 public class MessageEventDAO {

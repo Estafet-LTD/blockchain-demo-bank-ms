@@ -1,4 +1,4 @@
-package com.estafet.blockchain.demo.ms.bank;
+package com.estafet.blockchain.demo.bank.ms;
 
 import javax.jms.Destination;
 import javax.jms.JMSException;
