@@ -24,22 +24,22 @@ public class Account {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACCOUNT_ID_SEQ")
 	@Column(name = "ACCOUNT_ID")
 	private Integer id;
-	
-	@Column(name = "WALLET_ID", nullable = false)
-	private String walletId;
-	
+
+	@Column(name = "WALLET_ADDRESS", nullable = false)
+	private String walletAddress;
+
 	@Column(name = "ACCOUNT_NAME", nullable = false)
 	private String accountName;
-	
+
 	@Column(name = "PUBLIC_KEY", nullable = false)
 	private String publicKey;
-	
+
 	@Transient
 	private String version;
-	
+
 	@OneToMany(mappedBy = "transactionAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Transaction> transactions = new HashSet<Transaction>();
-	
+
 	public double getBalance() {
 		double balance = 0;
 		for (Transaction transaction : transactions) {
@@ -56,12 +56,12 @@ public class Account {
 		this.id = id;
 	}
 
-	public String getWalletId() {
-		return walletId;
+	public String getWalletAddress() {
+		return walletAddress;
 	}
 
-	public void setWalletId(String walletId) {
-		this.walletId = walletId;
+	public void setWalletAddress(String walletAddress) {
+		this.walletAddress = walletAddress;
 	}
 
 	public String getAccountName() {
@@ -87,7 +87,7 @@ public class Account {
 	public void setVersion(String version) {
 		this.version = version;
 	}
-	
+
 	public Account addTransaction(Transaction transaction) {
 		transaction.setTransactionAccount(this);
 		transactions.add(transaction);
@@ -122,5 +122,5 @@ public class Account {
 			return false;
 		return true;
 	}
-	
+
 }
