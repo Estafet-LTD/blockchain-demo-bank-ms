@@ -18,7 +18,7 @@ public class Transaction {
 	@Column(name = "TRANSACTION_ID")
 	private Integer id;
 	
-	@Column(name = "STATUS", nullable = false)
+	@Column(name = "WALLET_TRANSACTION_ID", nullable = false)
 	private String walletTransactionId;
 	
 	@JsonIgnore
