@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "ACCOUNT")
@@ -34,8 +33,8 @@ public class Account {
 	@Column(name = "PUBLIC_KEY", nullable = false)
 	private String publicKey;
 
-	@Transient
-	private String version;
+	@Column(name = "CURRENCY", nullable = false)
+	private String currency;
 
 	@OneToMany(mappedBy = "transactionAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Transaction> transactions = new HashSet<Transaction>();
@@ -43,9 +42,32 @@ public class Account {
 	public double getBalance() {
 		double balance = 0;
 		for (Transaction transaction : transactions) {
+			if (transaction.isCleared()) {
+				balance += transaction.getAmount();
+			}
+		}
+		return balance;
+	}
+	
+	public double getPendingBalance() {
+		double balance = 0;
+		for (Transaction transaction : transactions) {
 			balance += transaction.getAmount();
 		}
 		return balance;
+	}
+
+	public void debit(double amount) {
+		Transaction tx = new Transaction();
+		tx.setAmount(amount * -1.0d);
+		tx.setCleared(false);
+		transactions.add(tx);
+	}
+
+	public void credit(double amount) {
+		Transaction tx = new Transaction();
+		tx.setAmount(amount);
+		transactions.add(tx);
 	}
 
 	public Integer getId() {
@@ -80,12 +102,12 @@ public class Account {
 		this.publicKey = publicKey;
 	}
 
-	public String getVersion() {
-		return version;
+	public String getCurrency() {
+		return currency;
 	}
 
-	public void setVersion(String version) {
-		this.version = version;
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 
 	public Account addTransaction(Transaction transaction) {
