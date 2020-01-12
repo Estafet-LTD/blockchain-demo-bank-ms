@@ -35,10 +35,15 @@ public class BankController {
 	public Account getAccount(@PathVariable int id) {
 		return accountService.getAccount(id);
 	}
+	
+	@GetMapping(value = "/account/walletAddress/{walletAddress}")
+	public Account getAccount(@PathVariable String walletAddress) {
+		return accountService.getAccountByWalletAddress(walletAddress);
+	}
 
-	@PostMapping(value = "/account/currency/{currency}")
-	public ResponseEntity<Account> createAccount(@PathVariable String currency, @RequestBody Wallet wallet) {
-		return new ResponseEntity<Account>(accountService.createAccount(currency, wallet), HttpStatus.OK);
+	@PostMapping(value = "/account")
+	public ResponseEntity<Account> createAccount(@RequestBody Wallet wallet) {
+		return new ResponseEntity<Account>(accountService.createAccount(wallet), HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/account/{id}/credit")

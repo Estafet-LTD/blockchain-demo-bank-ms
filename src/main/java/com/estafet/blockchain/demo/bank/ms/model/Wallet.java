@@ -11,6 +11,16 @@ public class Wallet {
 
 	private String walletName;
 
+	private String currency;
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
 	public String getWalletAddress() {
 		return walletAddress;
 	}
@@ -28,13 +38,13 @@ public class Wallet {
 	}
 
 	public static Wallet fromJSON(String message) {
-        try {
-            return new ObjectMapper().readValue(message, Wallet.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-	
+		try {
+			return new ObjectMapper().readValue(message, Wallet.class);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	public String toJSON() {
 		try {
 			return new ObjectMapper().writeValueAsString(this);

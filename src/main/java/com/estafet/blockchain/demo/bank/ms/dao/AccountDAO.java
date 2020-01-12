@@ -26,4 +26,9 @@ public class AccountDAO {
 		entityManager.merge(account);
 	}
 	
+	public Account getAccountByWalletAddress(String walletAddress) {
+		return entityManager.createQuery("select a from Account a where a.walletAddress = " + walletAddress, Account.class)
+				.getResultList().get(0);
+	}
+	
 }

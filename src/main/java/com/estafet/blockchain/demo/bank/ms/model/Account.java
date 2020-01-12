@@ -155,6 +155,7 @@ public class Account {
 		Account account = new Account();
 		account.setAccountName(wallet.getWalletName());
 		account.setWalletAddress(wallet.getWalletAddress());
+		account.setCurrency(wallet.getCurrency());
 		account.setPublicKey("sjsjsj");
 		return account;
 	}
