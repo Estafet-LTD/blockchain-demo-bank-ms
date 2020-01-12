@@ -16,6 +16,7 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
+import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentCurrencyConverterMessage;
 import com.estafet.microservices.scrum.lib.commons.properties.PropertyUtils;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -45,7 +46,7 @@ public class ITBankTest {
 	public void testGetAccount() {
 		get("/account/1000").then()
 			.statusCode(HttpURLConnection.HTTP_OK)
-			.body("id", is(1))
+			.body("id", is(1000))
 			.body("walletAddress", is("abcd"))
 			.body("accountName", is("Dennis"))
 			.body("publicKey", is("dddd"))
@@ -63,7 +64,7 @@ public class ITBankTest {
 				.post("/account/2000/credit")
 			.then()
 				.statusCode(HttpURLConnection.HTTP_OK)
-				.body("id", is(2))
+				.body("id", is(2000))
 				.body("balance", is(13200.67f));
 	}
 
@@ -71,30 +72,30 @@ public class ITBankTest {
 	@DatabaseSetup("ITBankTest-data.xml")
 	public void testDedit() {
 		given().contentType(ContentType.JSON)
-			.body("{ \"amount\": 20.0, \"currency\": \"USD\" }")
+			.body("{ \"amount\": 20.0 }")
 			.when()
 				.post("/account/1000/debit")
 			.then()
 				.statusCode(HttpURLConnection.HTTP_OK)
-				.body("id", is(1))
+				.body("id", is(1000))
 				.body("currency", is("USD"))
-				.body("balance", is(130.00f));
+				.body("balance", is(150.00f))
+				.body("pendingBalance", is(-20.00f));
 	}
 	
 	@Test
 	@DatabaseSetup("ITBankTest-data.xml")
 	public void testCreateAccount() {
 		given().contentType(ContentType.JSON)
-			.body("{\r\n" + 
-					"    \"walletAddress\": \"abcd\",\r\n" + 
-					"    \"walletName\": \"Peter\"\r\n" + 
-					"}")
+			.body("{\"walletAddress\": \"abcd\", \"walletName\": \"Peter\", \"currency\": \"EUR\" }")
 			.when()
-				.post("/account/currency/USD")
+				.post("/account")
 			.then()
 				.statusCode(HttpURLConnection.HTTP_OK)
+				.body("id", is(notNullValue()))
 				.body("walletAddress", is("abcd"))
-				.body("accountName", is("Peter"));
+				.body("accountName", is("Peter"))
+				.body("currency", is("EUR"));
 	}
 
 	@Test
@@ -109,8 +110,11 @@ public class ITBankTest {
 	@Test
 	@DatabaseSetup("ITBankTest-data.xml")
 	public void testConsumeBankPayment() {
-		BankPaymentTopicProducer.send("{\"walletAddress\":\"ssjsjaja\",\"walletName\":\"Dennis\",\"currency\":\"USD\"}");
-		topic.consume();
+		BankPaymentTopicProducer.send("{\"walletAddress\":\"efgh\",\"amount\":200.65,\"transactionId\":\"123456\"}");
+		BankPaymentCurrencyConverterMessage message = topic.consume();
+		assertEquals("GBP", message.getCurrency());
+		assertEquals("123456", message.getTransactionId());
+		assertEquals("efgh", message.getWalletAddress());
 	}
 
 }

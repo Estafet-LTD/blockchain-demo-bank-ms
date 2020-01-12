@@ -2,6 +2,7 @@ package com.estafet.blockchain.demo.bank.ms.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
@@ -27,8 +28,8 @@ public class AccountDAO {
 	}
 	
 	public Account getAccountByWalletAddress(String walletAddress) {
-		return entityManager.createQuery("select a from Account a where a.walletAddress = " + walletAddress, Account.class)
-				.getResultList().get(0);
+		TypedQuery<Account> query = entityManager.createQuery("select a from Account a where a.walletAddress = ?1", Account.class);
+		return query.setParameter(1, walletAddress).getSingleResult();
 	}
 	
 }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.estafet.blockchain.demo.bank.ms.model.API;
 import com.estafet.blockchain.demo.bank.ms.model.Account;
 import com.estafet.blockchain.demo.bank.ms.model.Money;
-import com.estafet.blockchain.demo.bank.ms.model.Transaction;
 import com.estafet.blockchain.demo.bank.ms.model.Wallet;
 import com.estafet.blockchain.demo.bank.ms.service.AccountService;
 
