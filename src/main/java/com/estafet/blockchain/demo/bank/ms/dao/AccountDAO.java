@@ -6,7 +6,6 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import com.estafet.blockchain.demo.bank.ms.model.Account;
-import com.estafet.blockchain.demo.bank.ms.model.Transaction;
 
 @Repository
 public class AccountDAO {
@@ -25,10 +24,6 @@ public class AccountDAO {
 
 	public void updateAccount(Account account) {
 		entityManager.merge(account);
-	}
-
-	public void saveTransaction(Transaction transaction) {
-		entityManager.persist(transaction);
 	}
 	
 }

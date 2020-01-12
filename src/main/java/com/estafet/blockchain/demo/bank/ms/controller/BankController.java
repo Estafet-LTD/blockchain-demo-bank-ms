@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.estafet.blockchain.demo.bank.ms.model.API;
 import com.estafet.blockchain.demo.bank.ms.model.Account;
+import com.estafet.blockchain.demo.bank.ms.model.Money;
 import com.estafet.blockchain.demo.bank.ms.model.Transaction;
 import com.estafet.blockchain.demo.bank.ms.model.Wallet;
 import com.estafet.blockchain.demo.bank.ms.service.AccountService;
@@ -40,14 +41,14 @@ public class BankController {
 		return new ResponseEntity<Account>(accountService.createAccount(currency, wallet), HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/account/{id}/credit/{amount}")
-	public ResponseEntity<Account> credit(@PathVariable int id, @PathVariable double amount) {
-		return new ResponseEntity<Account>(accountService.credit(id, amount), HttpStatus.OK);
+	@PostMapping(value = "/account/{id}/credit")
+	public ResponseEntity<Account> credit(@PathVariable int id, @RequestBody Money money) {
+		return new ResponseEntity<Account>(accountService.credit(id, money), HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "/account/{id}/debit/{amount}")
-	public ResponseEntity<Account> debit(@PathVariable int id, @PathVariable double amount) {
-		return new ResponseEntity<Account>(accountService.debit(id, amount), HttpStatus.OK);
+	@PostMapping(value = "/account/{id}/debit")
+	public ResponseEntity<Account> debit(@PathVariable int id, @RequestBody Money money) {
+		return new ResponseEntity<Account>(accountService.debit(id, money), HttpStatus.OK);
 	}
 	
 }

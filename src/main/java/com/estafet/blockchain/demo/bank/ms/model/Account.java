@@ -59,17 +59,19 @@ public class Account {
 		return balance;
 	}
 
-	public Transaction debit(double amount) {
+	public Transaction debit(Money money) {
 		Transaction tx = new Transaction();
-		tx.setAmount(amount * -1.0d);
+		tx.setWalletTransactionId(money.getWalletTransactionId());
+		tx.setAmount(money.getAmount() * -1.0d);
 		tx.setStatus("PENDING");
 		transactions.add(tx);
 		return tx;
 	}
 
-	public Transaction credit(double amount) {
+	public Transaction credit(Money money) {
 		Transaction tx = new Transaction();
-		tx.setAmount(amount);
+		tx.setWalletTransactionId(money.getWalletTransactionId());
+		tx.setAmount(money.getAmount());
 		transactions.add(tx);
 		return tx;
 	}

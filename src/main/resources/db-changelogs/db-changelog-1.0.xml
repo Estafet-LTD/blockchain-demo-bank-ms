@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="Dennis (generated)" id="1578843389312-1">
+    <changeSet author="Dennis (generated)" id="1578854188582-1">
         <createSequence sequenceName="account_id_seq"/>
     </changeSet>
-    <changeSet author="Dennis (generated)" id="1578843389312-2">
+    <changeSet author="Dennis (generated)" id="1578854188582-2">
+        <createSequence sequenceName="transaction_id_seq"/>
+    </changeSet>
+    <changeSet author="Dennis (generated)" id="1578854188582-3">
         <createTable tableName="account">
             <column name="account_id" type="INT">
                 <constraints nullable="false"/>
@@ -22,7 +25,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="Dennis (generated)" id="1578843389312-3">
+    <changeSet author="Dennis (generated)" id="1578854188582-4">
         <createTable tableName="message_event">
             <column name="topic_id" type="VARCHAR(255)">
                 <constraints nullable="false"/>
@@ -33,7 +36,7 @@
             <column name="version" type="INT"/>
         </createTable>
     </changeSet>
-    <changeSet author="Dennis (generated)" id="1578843389312-4">
+    <changeSet author="Dennis (generated)" id="1578854188582-5">
         <createTable tableName="transaction">
             <column name="transaction_id" type="INT">
                 <constraints nullable="false"/>
@@ -44,24 +47,22 @@
             <column name="status" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="wallet_transaction_id" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="wallet_transaction_id" type="VARCHAR(255)"/>
             <column name="account_id" type="INT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="Dennis (generated)" id="1578843389312-5">
+    <changeSet author="Dennis (generated)" id="1578854188582-6">
         <addPrimaryKey columnNames="account_id" constraintName="account_pkey" tableName="account"/>
     </changeSet>
-    <changeSet author="Dennis (generated)" id="1578843389312-6">
+    <changeSet author="Dennis (generated)" id="1578854188582-7">
         <addPrimaryKey columnNames="topic_id" constraintName="message_event_pkey" tableName="message_event"/>
     </changeSet>
-    <changeSet author="Dennis (generated)" id="1578843389312-7">
+    <changeSet author="Dennis (generated)" id="1578854188582-8">
         <addPrimaryKey columnNames="transaction_id" constraintName="transaction_pkey" tableName="transaction"/>
     </changeSet>
-    <changeSet author="Dennis (generated)" id="1578843389312-8">
+    <changeSet author="Dennis (generated)" id="1578854188582-9">
         <addForeignKeyConstraint baseColumnNames="account_id" baseTableName="transaction" constraintName="transaction_to_account_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="account_id" referencedTableName="account"/>
     </changeSet>
 </databaseChangeLog>

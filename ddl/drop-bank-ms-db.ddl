@@ -3,3 +3,4 @@ drop table if exists ACCOUNT cascade;
 drop table if exists MESSAGE_EVENT cascade;
 drop table if exists TRANSACTION cascade;
 drop sequence ACCOUNT_ID_SEQ;
+drop sequence TRANSACTION_ID_SEQ;

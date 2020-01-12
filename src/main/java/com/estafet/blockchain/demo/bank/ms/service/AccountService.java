@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.estafet.blockchain.demo.bank.ms.dao.AccountDAO;
 import com.estafet.blockchain.demo.bank.ms.model.Account;
+import com.estafet.blockchain.demo.bank.ms.model.Money;
 import com.estafet.blockchain.demo.bank.ms.model.Transaction;
 import com.estafet.blockchain.demo.bank.ms.model.Wallet;
 
@@ -28,16 +29,18 @@ public class AccountService {
 	}
 
 	@Transactional
-	public Account credit(int accountId, double amount) {
+	public Account credit(int accountId, Money money) {
 		Account account = accountDAO.getAccount(accountId);
-		accountDAO.saveTransaction(account.credit(amount));
+		account.credit(money);
+		accountDAO.updateAccount(account);
 		return account;
 	}
 
 	@Transactional
-	public Account debit(int accountId, double amount) {
+	public Account debit(int accountId, Money money) {
 		Account account = accountDAO.getAccount(accountId);
-		accountDAO.saveTransaction(account.debit(amount));
+		account.debit(money);
+		accountDAO.updateAccount(account);
 		return account;
 	}
 	

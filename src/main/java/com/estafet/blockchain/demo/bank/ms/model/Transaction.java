@@ -3,9 +3,12 @@ package com.estafet.blockchain.demo.bank.ms.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,10 +18,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Transaction {
 
 	@Id
+	@SequenceGenerator(name = "TRANSACTION_ID_SEQ", sequenceName = "TRANSACTION_ID_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRANSACTION_ID_SEQ")
 	@Column(name = "TRANSACTION_ID")
 	private Integer id;
 
-	@Column(name = "WALLET_TRANSACTION_ID", nullable = false)
+	@Column(name = "WALLET_TRANSACTION_ID", nullable = true)
 	private String walletTransactionId;
 
 	@JsonIgnore
