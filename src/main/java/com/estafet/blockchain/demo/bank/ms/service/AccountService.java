@@ -30,16 +30,14 @@ public class AccountService {
 	@Transactional
 	public Account credit(int accountId, double amount) {
 		Account account = accountDAO.getAccount(accountId);
-		account.credit(amount);
-		accountDAO.update(account);
+		accountDAO.saveTransaction(account.credit(amount));
 		return account;
 	}
 
 	@Transactional
 	public Account debit(int accountId, double amount) {
 		Account account = accountDAO.getAccount(accountId);
-		account.debit(amount);
-		accountDAO.update(account);
+		accountDAO.saveTransaction(account.debit(amount));
 		return account;
 	}
 	
