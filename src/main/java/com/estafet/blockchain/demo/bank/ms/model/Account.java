@@ -64,7 +64,7 @@ public class Account {
 		tx.setWalletTransactionId(money.getWalletTransactionId());
 		tx.setAmount(money.getAmount() * -1.0d);
 		tx.setStatus("PENDING");
-		transactions.add(tx);
+		addTransaction(tx);
 		return tx;
 	}
 
@@ -72,7 +72,7 @@ public class Account {
 		Transaction tx = new Transaction();
 		tx.setWalletTransactionId(money.getWalletTransactionId());
 		tx.setAmount(money.getAmount());
-		transactions.add(tx);
+		addTransaction(tx);
 		return tx;
 	}
 
@@ -116,7 +116,7 @@ public class Account {
 		this.currency = currency;
 	}
 
-	public Account addTransaction(Transaction transaction) {
+	private Account addTransaction(Transaction transaction) {
 		transaction.setTransactionAccount(this);
 		transactions.add(transaction);
 		return this;
