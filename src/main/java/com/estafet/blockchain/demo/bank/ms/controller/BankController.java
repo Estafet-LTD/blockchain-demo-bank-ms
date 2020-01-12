@@ -40,8 +40,14 @@ public class BankController {
 		return new ResponseEntity<Account>(accountService.createAccount(currency, wallet), HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/account/{id}/transaction")
-	public ResponseEntity<Transaction> addTransaction(@PathVariable int id, @RequestBody Transaction transaction) {
-		return new ResponseEntity<Transaction>(accountService.addTransaction(id, transaction), HttpStatus.OK);
+	@PostMapping(value = "/account/{id}/credit/{amount}")
+	public ResponseEntity<Account> credit(@PathVariable int id, @PathVariable double amount) {
+		return new ResponseEntity<Account>(accountService.credit(id, amount), HttpStatus.OK);
 	}
+	
+	@PostMapping(value = "/account/{id}/debit/{amount}")
+	public ResponseEntity<Account> debit(@PathVariable int id, @PathVariable double amount) {
+		return new ResponseEntity<Account>(accountService.debit(id, amount), HttpStatus.OK);
+	}
+	
 }

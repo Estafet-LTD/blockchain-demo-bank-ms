@@ -152,6 +152,7 @@ public class Account {
 	public static Account instance(Wallet wallet) {
 		Account account = new Account();
 		account.setAccountName(wallet.getWalletName());
+		account.setWalletAddress(wallet.getWalletAddress());
 		account.setPublicKey("sjsjsj");
 		return account;
 	}

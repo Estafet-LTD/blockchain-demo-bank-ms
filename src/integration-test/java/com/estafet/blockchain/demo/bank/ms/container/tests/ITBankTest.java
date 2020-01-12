@@ -1,4 +1,4 @@
-package com.estafet.microservices.bank.ms.container.tests;
+package com.estafet.blockchain.demo.bank.ms.container.tests;
 
 import static org.junit.Assert.*;
 
@@ -43,27 +43,28 @@ public class ITBankTest {
 
 	@Test
 	@DatabaseSetup("ITBankTest-data.xml")
-	public void testGetBank() {
-		get("/bank/1000").then()
+	public void testGetAccount() {
+		get("/account/1").then()
 			.statusCode(HttpURLConnection.HTTP_OK)
-			.body("id", is(1000))
-			.body("startDate", is("2017-10-01 00:00:00"))
-			.body("endDate", is("2017-10-06 00:00:00"))
-			.body("number", is(5))
-			.body("status", is("Active"))
-			.body("projectId", is(1));
+			.body("id", is(1))
+			.body("walletAddress", is("abcd"))
+			.body("accountName", is("Dennis"))
+			.body("publicKey", is("dddd"))
+			.body("currency", is("USD"))
+			.body("balance",is(150.0f))
+			.body("pendingBalance",is(0.0f));
 	}
 
 	@Test
 	@DatabaseSetup("ITBankTest-data.xml")
-	public void testGetTransactions() {
-		get("/project/1/sprints").then()
-			.statusCode(HttpURLConnection.HTTP_OK)
-			.body("id", hasItems(1000, 1001))
-			.body("startDate", hasItems("2017-10-01 00:00:00", "2016-10-01 00:00:00"))
-			.body("endDate", hasItems("2017-10-06 00:00:00", "2016-10-06 00:00:00"))
-			.body("number", hasItems(5, 5))
-			.body("status", hasItems("Active", "Completed"));
+	public void testCredit() {
+		given().contentType(ContentType.JSON)
+			.when()
+				.post("/account/2/credit/7800.67")
+			.then()
+				.statusCode(HttpURLConnection.HTTP_OK)
+				.body("id", is(2))
+				.body("balance", is(13200.67f));
 	}
 
 	@Test

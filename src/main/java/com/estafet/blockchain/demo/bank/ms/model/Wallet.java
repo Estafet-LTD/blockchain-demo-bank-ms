@@ -11,26 +11,6 @@ public class Wallet {
 
 	private String walletName;
 
-	private int balance = 0;
-
-	private String status = "CLEARED";
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public int getBalance() {
-		return balance;
-	}
-
-	public void setBalance(int balance) {
-		this.balance = balance;
-	}
-
 	public String getWalletAddress() {
 		return walletAddress;
 	}

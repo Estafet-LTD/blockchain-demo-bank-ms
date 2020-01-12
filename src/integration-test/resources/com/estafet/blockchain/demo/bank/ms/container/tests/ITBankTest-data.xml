@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-	<sprint sprint_id="1000" start_date="2017-10-01 00:00:00" end_date="2017-10-06 00:00:00" sprint_number="5" no_days="5" sprint_status="Active" project_id="1"/>
-	<sprint sprint_id="1001" start_date="2016-10-01 00:00:00" end_date="2016-10-06 00:00:00" sprint_number="5" no_days="5" sprint_status="Completed" project_id="1"/>
-	<story/>
+	<account account_id="1" account_name="Dennis" currency="USD" public_key="dddd" wallet_address="abcd"/>
+	<transaction transaction_id="1" amount="200" status="CLEARED" wallet_transaction_id="2345" account_id="1"/>
+	<transaction transaction_id="2" amount="-50" status="CLEARED" wallet_transaction_id="3456" account_id="1"/>
+	<account account_id="2" account_name="Iryna" currency="GBP" public_key="dddd" wallet_address="efgh"/>
+	<transaction transaction_id="3" amount="5000" status="CLEARED" wallet_transaction_id="775655" account_id="2"/>
+	<transaction transaction_id="4" amount="400" status="CLEARED" wallet_transaction_id="3432222" account_id="2"/>
 </dataset>

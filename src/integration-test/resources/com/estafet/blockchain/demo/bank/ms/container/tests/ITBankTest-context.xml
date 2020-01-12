@@ -14,7 +14,7 @@
 	<bean id="myEmf"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="com.estafet.microservices.api.project.model" />
+		<property name="packagesToScan" value="com.estafet.blockchain.demo.bank.ms.model" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 		</property>
@@ -31,9 +31,9 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="${SPRINT_API_JDBC_URL}" />
-		<property name="username" value="${SPRINT_API_DB_USER}" />
-		<property name="password" value="${SPRINT_API_DB_PASSWORD}" />
+		<property name="url" value="${BANK_MS_JDBC_URL}" />
+		<property name="username" value="${BANK_MS_DB_USER}" />
+		<property name="password" value="${BANK_MS_DB_PASSWORD}" />
 	</bean>
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">

@@ -28,11 +28,19 @@ public class AccountService {
 	}
 
 	@Transactional
-	public Transaction addTransaction(int accountId, Transaction transaction) {
+	public Account credit(int accountId, double amount) {
 		Account account = accountDAO.getAccount(accountId);
-		account.addTransaction(transaction);
+		account.credit(amount);
 		accountDAO.update(account);
-		return transaction;
+		return account;
+	}
+
+	@Transactional
+	public Account debit(int accountId, double amount) {
+		Account account = accountDAO.getAccount(accountId);
+		account.debit(amount);
+		accountDAO.update(account);
+		return account;
 	}
 	
 }
