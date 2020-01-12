@@ -17,20 +17,20 @@ public class Transaction {
 	@Id
 	@Column(name = "TRANSACTION_ID")
 	private Integer id;
-	
+
 	@Column(name = "WALLET_TRANSACTION_ID", nullable = false)
 	private String walletTransactionId;
-	
+
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "ACCOUNT_ID", nullable = false, referencedColumnName = "ACCOUNT_ID", foreignKey = @ForeignKey(name = "TRANSACTION_TO_ACCOUNT_FK"))
 	private Account transactionAccount;
-	
+
 	@Column(name = "AMOUNT", nullable = false)
 	private double amount = 0;
-	
-	@Column(name = "CLEARED", nullable = false)
-	private boolean cleared = true;
+
+	@Column(name = "STATUS", nullable = false)
+	private String status = "CLEARED";
 
 	public Integer getId() {
 		return id;
@@ -64,12 +64,12 @@ public class Transaction {
 		this.amount = amount;
 	}
 
-	public boolean isCleared() {
-		return cleared;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setCleared(boolean cleared) {
-		this.cleared = cleared;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override
@@ -95,6 +95,10 @@ public class Transaction {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public boolean isCleared() {
+		return status.equals("CLEARED");
 	}
 
 }

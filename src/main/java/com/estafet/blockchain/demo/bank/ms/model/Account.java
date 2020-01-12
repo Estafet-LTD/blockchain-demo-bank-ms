@@ -36,7 +36,7 @@ public class Account {
 	@Column(name = "CURRENCY", nullable = false)
 	private String currency;
 
-	@OneToMany(mappedBy = "transactionAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "transactionAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Transaction> transactions = new HashSet<Transaction>();
 
 	public double getBalance() {
@@ -52,22 +52,26 @@ public class Account {
 	public double getPendingBalance() {
 		double balance = 0;
 		for (Transaction transaction : transactions) {
-			balance += transaction.getAmount();
+			if (!transaction.isCleared()) {
+				balance += transaction.getAmount();	
+			}
 		}
 		return balance;
 	}
 
-	public void debit(double amount) {
+	public Transaction debit(double amount) {
 		Transaction tx = new Transaction();
 		tx.setAmount(amount * -1.0d);
-		tx.setCleared(false);
+		tx.setStatus("PENDING");
 		transactions.add(tx);
+		return tx;
 	}
 
-	public void credit(double amount) {
+	public Transaction credit(double amount) {
 		Transaction tx = new Transaction();
 		tx.setAmount(amount);
 		transactions.add(tx);
+		return tx;
 	}
 
 	public Integer getId() {
@@ -143,6 +147,13 @@ public class Account {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public static Account instance(Wallet wallet) {
+		Account account = new Account();
+		account.setAccountName(wallet.getWalletName());
+		account.setPublicKey("sjsjsj");
+		return account;
 	}
 
 }
