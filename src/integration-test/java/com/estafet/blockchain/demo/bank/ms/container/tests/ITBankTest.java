@@ -53,7 +53,7 @@ public class ITBankTest {
 			.body("currency", is("USD"))
 			.body("balance",is(150.0f))
 			.body("pendingBalance",is(0.0f))
-			.body("pending", is(true));		
+			.body("pending", is(false));		
 	}
 
 	@Test
