@@ -11,8 +11,10 @@ public class AccountTest {
 		Account account = new Account();
 		account.credit(new Money(100)).setId(0);
 		account.credit(new Money(50)).setId(1);
+		assertFalse(account.isPending());
 		account.debit(new Money(10)).setId(2);
 		assertEquals(150, account.getBalance(), 0);
+		assertTrue(account.isPending());
 	}
 
 	@Test
@@ -20,8 +22,10 @@ public class AccountTest {
 		Account account = new Account();
 		account.credit(new Money(100)).setId(0);
 		account.credit(new Money(50)).setId(1);
+		assertFalse(account.isPending());
 		account.debit(new Money(10)).setId(2);
 		assertEquals(-10, account.getPendingBalance(), 0);
+		assertTrue(account.isPending());
 	}
 
 }

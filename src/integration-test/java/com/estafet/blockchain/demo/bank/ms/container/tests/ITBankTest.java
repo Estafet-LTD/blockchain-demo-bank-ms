@@ -52,7 +52,8 @@ public class ITBankTest {
 			.body("publicKey", is("dddd"))
 			.body("currency", is("USD"))
 			.body("balance",is(150.0f))
-			.body("pendingBalance",is(0.0f));
+			.body("pendingBalance",is(0.0f))
+			.body("pending", is(true));		
 	}
 
 	@Test
@@ -65,7 +66,8 @@ public class ITBankTest {
 			.then()
 				.statusCode(HttpURLConnection.HTTP_OK)
 				.body("id", is(2000))
-				.body("balance", is(13200.67f));
+				.body("balance", is(13200.67f))
+				.body("pending", is(false));
 	}
 
 	@Test
@@ -80,7 +82,8 @@ public class ITBankTest {
 				.body("id", is(1000))
 				.body("currency", is("USD"))
 				.body("balance", is(150.00f))
-				.body("pendingBalance", is(-20.00f));
+				.body("pendingBalance", is(-20.00f))
+				.body("pending", is(true));;
 	}
 	
 	@Test
@@ -115,6 +118,31 @@ public class ITBankTest {
 		assertEquals("GBP", message.getCurrency());
 		assertEquals("123456", message.getTransactionId());
 		assertEquals("efgh", message.getWalletAddress());
+		assertEquals(200.65, message.getCurrencyAmount(), 0);
+	}
+	
+	@Test
+	@DatabaseSetup("ITBankTest-data.xml")
+	public void testConsumeBankPaymentConfirmation() {
+		get("/account/2000").then()
+			.statusCode(HttpURLConnection.HTTP_OK)
+			.body("id", is(2000))
+			.body("pending", is(false));	
+		
+		BankPaymentTopicProducer.send("{\"walletAddress\":\"efgh\",\"amount\":200.65,\"transactionId\":\"123456\"}");
+		topic.consume();
+		
+		get("/account/2000").then()
+			.statusCode(HttpURLConnection.HTTP_OK)
+			.body("id", is(2000))
+			.body("pending", is(true));		
+		
+		BankPaymentConfirmationTopicProducer.send("{\"status\":\"SUCCESS\",\"signature\":\"sjsjsjsjs\",\"transactionId\":\"123456\"}");
+		
+		get("/account/2000").then()
+			.statusCode(HttpURLConnection.HTTP_OK)
+			.body("id", is(2000))
+			.body("pending", is(false));			
 	}
 
 }

@@ -106,4 +106,7 @@ public class Transaction {
 		return status.equals("CLEARED");
 	}
 
+	public boolean isPending() {
+		return status.equals("PENDING");
+	}
 }

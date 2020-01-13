@@ -58,6 +58,15 @@ public class Account {
 		}
 		return balance;
 	}
+	
+	public boolean isPending() {
+		for (Transaction transaction : transactions) {
+			if (transaction.isPending()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public Transaction debit(Money money) {
 		Transaction tx = new Transaction();
