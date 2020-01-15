@@ -1,5 +1,8 @@
 package com.estafet.blockchain.demo.bank.ms.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -148,13 +151,20 @@ public class Account {
 			return false;
 		return true;
 	}
-
-	public static Account instance(Wallet wallet) {
+// TODO delete
+/*	public static Account instance(Wallet wallet) {
 		Account account = new Account();
 		account.setAccountName(wallet.getWalletName());
 		account.setWalletAddress(wallet.getWalletAddress());
 		account.setCurrency(wallet.getCurrency());
 		return account;
-	}
+	}*/
 
+	public String toJSON() {
+		try {
+			return new ObjectMapper().writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

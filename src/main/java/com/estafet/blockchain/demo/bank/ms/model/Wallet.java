@@ -11,16 +11,6 @@ public class Wallet {
 
 	private String walletName;
 
-	private String currency;
-
-	public String getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
-
 	public String getWalletAddress() {
 		return walletAddress;
 	}

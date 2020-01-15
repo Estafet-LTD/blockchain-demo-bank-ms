@@ -4,6 +4,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import com.estafet.blockchain.demo.bank.ms.jms.NewAccountProducer;
+import com.estafet.blockchain.demo.bank.ms.model.Money;
+import com.estafet.demo.commons.lib.wallet.WalletUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.estafet.blockchain.demo.bank.ms.model.Account;
@@ -13,13 +17,18 @@ public class AccountDAO {
 
 	@PersistenceContext
 	private EntityManager entityManager;
+
+	@Autowired
+	private NewAccountProducer newAccountProducer;
 	
 	public Account getAccount(Integer accountId) {
 		return entityManager.find(Account.class, accountId);
 	}
 
 	public Account createAccount(Account account) {
+		account.setWalletAddress(WalletUtils.generateWalletAddress());
 		entityManager.persist(account);
+		newAccountProducer.sendMessage(account);
 		return account;
 	}
 

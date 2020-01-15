@@ -27,8 +27,9 @@ public class AccountService {
 	}
 
 	@Transactional
-	public Account createAccount(Wallet wallet) {
-		return accountDAO.createAccount(Account.instance(wallet));
+	public Account createAccount(Account account) {
+		return accountDAO.createAccount(account);
+//		return accountDAO.createAccount(Account.instance(account));
 	}
 
 	@Transactional

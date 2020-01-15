@@ -41,8 +41,8 @@ public class BankController {
 	}
 
 	@PostMapping(value = "/account")
-	public ResponseEntity<Account> createAccount(@RequestBody Wallet wallet) {
-		return new ResponseEntity<Account>(accountService.createAccount(wallet), HttpStatus.OK);
+	public ResponseEntity<Account> createAccount(@RequestBody Account account) {
+		return new ResponseEntity<Account>(accountService.createAccount(account), HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/account/{id}/credit")
