@@ -8,7 +8,6 @@ import com.estafet.blockchain.demo.bank.ms.dao.AccountDAO;
 import com.estafet.blockchain.demo.bank.ms.jms.CurrencyConverterProducer;
 import com.estafet.blockchain.demo.bank.ms.model.Account;
 import com.estafet.blockchain.demo.bank.ms.model.Money;
-import com.estafet.blockchain.demo.bank.ms.model.Wallet;
 import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentCurrencyConverterMessage;
 import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentMessage;
 
@@ -29,7 +28,6 @@ public class AccountService {
 	@Transactional
 	public Account createAccount(Account account) {
 		return accountDAO.createAccount(account);
-//		return accountDAO.createAccount(Account.instance(account));
 	}
 
 	@Transactional
