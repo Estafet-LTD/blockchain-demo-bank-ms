@@ -49,7 +49,6 @@ public class ITBankTest {
 			.body("id", is(1000))
 			.body("walletAddress", is("abcd"))
 			.body("accountName", is("Dennis"))
-			.body("publicKey", is("dddd"))
 			.body("currency", is("USD"))
 			.body("balance",is(150.0f))
 			.body("pendingBalance",is(0.0f))

@@ -30,9 +30,6 @@ public class Account {
 	@Column(name = "ACCOUNT_NAME", nullable = false)
 	private String accountName;
 
-	@Column(name = "PUBLIC_KEY", nullable = false)
-	private String publicKey;
-
 	@Column(name = "CURRENCY", nullable = false)
 	private String currency;
 
@@ -109,14 +106,6 @@ public class Account {
 		this.accountName = accountName;
 	}
 
-	public String getPublicKey() {
-		return publicKey;
-	}
-
-	public void setPublicKey(String publicKey) {
-		this.publicKey = publicKey;
-	}
-
 	public String getCurrency() {
 		return currency;
 	}
@@ -165,7 +154,6 @@ public class Account {
 		account.setAccountName(wallet.getWalletName());
 		account.setWalletAddress(wallet.getWalletAddress());
 		account.setCurrency(wallet.getCurrency());
-		account.setPublicKey("sjsjsj");
 		return account;
 	}
 
