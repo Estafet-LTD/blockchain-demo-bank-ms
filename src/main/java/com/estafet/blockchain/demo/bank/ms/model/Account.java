@@ -151,14 +151,6 @@ public class Account {
 			return false;
 		return true;
 	}
-// TODO delete
-/*	public static Account instance(Wallet wallet) {
-		Account account = new Account();
-		account.setAccountName(wallet.getWalletName());
-		account.setWalletAddress(wallet.getWalletAddress());
-		account.setCurrency(wallet.getCurrency());
-		return account;
-	}*/
 
 	public String toJSON() {
 		try {
