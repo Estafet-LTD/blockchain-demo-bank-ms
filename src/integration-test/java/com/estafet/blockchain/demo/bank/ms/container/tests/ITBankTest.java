@@ -82,32 +82,24 @@ public class ITBankTest {
 				.body("currency", is("USD"))
 				.body("balance", is(150.00f))
 				.body("pendingBalance", is(-20.00f))
-				.body("pending", is(true));;
+				.body("pending", is(true));
 	}
 	
 	@Test
 	@DatabaseSetup("ITBankTest-data.xml")
 	public void testCreateAccount() {
 		given().contentType(ContentType.JSON)
-			.body("{\"walletName\": \"Peter\", \"currency\": \"EUR\" }")
+			.body("{\"accountName\": \"Peter\", \"currency\": \"EUR\" }")
 			.when()
 				.post("/account")
 			.then()
 				.statusCode(HttpURLConnection.HTTP_OK)
 				.body("id", is(notNullValue()))
+				.body("walletAddress", is(notNullValue()))
 				.body("accountName", is("Peter"))
 				.body("currency", is("EUR"));
 	}
 
-/*	@Test
-	@DatabaseSetup("ITBankTest-data.xml")
-	public void testConsumeNewWallet() {
-		NewWalletTopicProducer.send("{\"walletAddress\":\"ssjsjaja\",\"walletName\":\"Dennis\",\"currency\":\"USD\"}");
-		get("/account/walletAddress/ssjsjaja").then()
-			.statusCode(HttpURLConnection.HTTP_OK)
-			.body("id", is(notNullValue()));
-	}*/
-	
 	@Test
 	@DatabaseSetup("ITBankTest-data.xml")
 	public void testConsumeBankPayment() {
