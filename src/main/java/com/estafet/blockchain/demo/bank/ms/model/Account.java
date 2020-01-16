@@ -69,10 +69,18 @@ public class Account {
 	}
 
 	public Transaction debit(Money money) {
+		if ((getBalance() - money.getAmount()) < 0) {
+			throw new RuntimeException("Insufficient Funds");
+		}
 		Transaction tx = new Transaction();
 		tx.setWalletTransactionId(money.getWalletTransactionId());
 		tx.setAmount(money.getAmount() * -1.0d);
 		tx.setStatus("PENDING");
+		if (money.getWalletTransactionId() != null) {
+			tx.setDescription("Wallet Transfer to with transfer id - " + money.getWalletTransactionId());
+		} else {
+			tx.setDescription("User Withdrawal");
+		}
 		addTransaction(tx);
 		return tx;
 	}
@@ -81,6 +89,11 @@ public class Account {
 		Transaction tx = new Transaction();
 		tx.setWalletTransactionId(money.getWalletTransactionId());
 		tx.setAmount(money.getAmount());
+		if (transactions.isEmpty()) {
+			tx.setDescription("Opening Deposit");
+		} else {
+			tx.setDescription("User Deposit");
+		}
 		addTransaction(tx);
 		return tx;
 	}

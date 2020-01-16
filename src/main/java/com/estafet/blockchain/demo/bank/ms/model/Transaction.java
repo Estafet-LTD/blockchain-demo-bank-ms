@@ -37,6 +37,9 @@ public class Transaction {
 	@Column(name = "STATUS", nullable = false)
 	private String status = "CLEARED";
 
+	@Column(name = "DESCRIPTION", nullable = false)
+	private String description;
+
 	public Integer getId() {
 		return id;
 	}
@@ -75,6 +78,14 @@ public class Transaction {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override
