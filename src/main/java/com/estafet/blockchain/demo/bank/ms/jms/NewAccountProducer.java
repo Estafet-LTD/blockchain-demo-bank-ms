@@ -13,7 +13,7 @@ import java.util.UUID;
 @Component
 public class NewAccountProducer {
 
-    public final static String TOPIC = "new.bank.topic";
+    public final static String TOPIC = "new.account.topic";
 
     @Autowired
     private JmsTemplate jmsTemplate;
