@@ -1,0 +1,13 @@
+{
+	"request": {
+		"method": "POST",
+		"url": "/bank-ms/blockchain-gateway-ms/generate-wallet-account"
+	},
+	"response": {
+		"status": 200,
+		"body": "{\"address\": \"0x1b996c229735359188ad29c3988f0558320f8764\"}",
+		"headers": {
+            "Content-Type": "application/json"
+        }
+	}
+}

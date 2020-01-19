@@ -19,6 +19,9 @@ public class AccountService {
 
 	@Autowired
 	private CurrencyConverterProducer currencyConverterProducer;
+	
+	@Autowired
+	private BlockchainGatewayService blockchainGatewayService;
 
 	@Transactional(readOnly = true)
 	public Account getAccount(Integer accountId) {
@@ -27,6 +30,7 @@ public class AccountService {
 
 	@Transactional
 	public Account createAccount(Account account) {
+		account.setWalletAddress(blockchainGatewayService.generateWalletAddress().getAddress());
 		return accountDAO.createAccount(account);
 	}
 

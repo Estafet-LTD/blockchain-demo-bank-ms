@@ -5,7 +5,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import com.estafet.blockchain.demo.bank.ms.jms.NewAccountProducer;
-import com.estafet.demo.commons.lib.wallet.WalletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,7 +24,6 @@ public class AccountDAO {
 	}
 
 	public Account createAccount(Account account) {
-		account.setWalletAddress(WalletUtils.generateWalletAddress());
 		entityManager.persist(account);
 		newAccountProducer.sendMessage(account);
 		return account;

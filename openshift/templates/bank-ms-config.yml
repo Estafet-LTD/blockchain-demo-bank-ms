@@ -72,6 +72,8 @@ objects:
       spec:
         containers:
           - env:
+              - name: BLOCKCHAIN_GATEWAY_MS_SERVICE_URI
+                value: 'http://${ENV}blockchain-gateway-ms.${NAMESPACE}.svc:8080'
               - name: JBOSS_A_MQ_BROKER_PASSWORD
                 value: amq
               - name: JBOSS_A_MQ_BROKER_URL
