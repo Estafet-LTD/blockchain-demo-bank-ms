@@ -13,8 +13,12 @@ public class BlockchainGatewayService {
 	private RestTemplate restTemplate;
 
 	public WalletAddress generateWalletAddress() {
-		return restTemplate.postForObject("BLOCKCHAIN_GATEWAY_MS_SERVICE_URI" + "/generate-wallet-account", null,
+		return restTemplate.postForObject(getBlockchainGatewayServiceURI() + "/generate-wallet-account", null,
 				WalletAddress.class);
+	}
+
+	private String getBlockchainGatewayServiceURI() {
+		return System.getenv("BLOCKCHAIN_GATEWAY_MS_SERVICE_URI");
 	}
 
 }
