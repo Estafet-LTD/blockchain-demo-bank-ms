@@ -1,6 +1,9 @@
 package com.estafet.blockchain.demo.bank.ms.service;
 
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,6 +64,11 @@ public class AccountService {
 
 	public Account getAccountByWalletAddress(String walletAddress) {
 		return accountDAO.getAccountByWalletAddress(walletAddress);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Account> getAccounts() {
+		return accountDAO.getAccounts();
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.estafet.blockchain.demo.bank.ms.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -54,4 +56,8 @@ public class BankController {
 		return new ResponseEntity<Account>(accountService.debit(id, money), HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/accounts")
+	public List<Account> getAccounts() {
+		return accountService.getAccounts();
+	}
 }
