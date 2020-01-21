@@ -46,6 +46,7 @@ public class AccountDAO {
 	}
 	
 	public int deleteAll() {
+		entityManager.createQuery("DELETE FROM Transaction").executeUpdate();
 		return entityManager.createQuery("DELETE FROM Account").executeUpdate();
 	}
 	
