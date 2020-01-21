@@ -32,6 +32,11 @@ public class AccountService {
 	}
 
 	@Transactional
+	public void deleteAll() {
+		accountDAO.deleteAll();
+	}
+	
+	@Transactional
 	public Account createAccount(Account account) {
 		account.setWalletAddress(blockchainGatewayService.generateWalletAddress().getAddress());
 		return accountDAO.createAccount(account);
