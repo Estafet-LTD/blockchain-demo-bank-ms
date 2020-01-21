@@ -102,6 +102,14 @@ public class ITBankTest {
 
 	@Test
 	@DatabaseSetup("ITBankTest-data.xml")
+	public void deleteExchangeRates() {
+		delete("accounts").then()
+		.statusCode(HttpURLConnection.HTTP_OK)
+		.body(is("Accounts Deleted"));
+	}
+	
+	@Test
+	@DatabaseSetup("ITBankTest-data.xml")
 	public void testConsumeBankPayment() {
 		BankPaymentTopicProducer.send("{\"walletAddress\":\"efgh\",\"amount\":200.65,\"transactionId\":\"123456\"}");
 		BankPaymentCurrencyConverterMessage message = topic.consume();
