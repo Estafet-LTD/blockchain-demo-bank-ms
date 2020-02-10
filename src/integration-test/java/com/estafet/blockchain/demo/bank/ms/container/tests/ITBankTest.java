@@ -95,7 +95,7 @@ public class ITBankTest {
 			.then()
 				.statusCode(HttpURLConnection.HTTP_OK)
 				.body("id", is(notNullValue()))
-				.body("walletAddress", is("0x1b996c229735359188ad29c3988f0558320f8764"))
+				.body("walletAddress", is(not(nullValue())))
 				.body("accountName", is("Peter"))
 				.body("currency", is("EUR"));
 	}
