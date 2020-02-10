@@ -1,6 +1,6 @@
 package com.estafet.blockchain.demo.bank.ms.container.tests;
 
-import com.estafet.microservices.scrum.lib.commons.jms.TopicProducer;
+import com.estafet.openshift.boost.commons.lib.jms.TopicProducer;
 
 public class BankPaymentConfirmationTopicProducer extends TopicProducer {
 
