@@ -84,7 +84,7 @@ public class ITBankTest {
 				.body("pendingBalance", is(-20.00f))
 				.body("pending", is(true));
 	}
-	/* Temp removing test as we don't have wiremock running and walletAddress comes back differently
+	
 	@Test
 	@DatabaseSetup("ITBankTest-data.xml")
 	public void testCreateAccount() {
@@ -99,7 +99,7 @@ public class ITBankTest {
 				.body("accountName", is("Peter"))
 				.body("currency", is("EUR"));
 	}
-*/
+
 	@Test
 	@DatabaseSetup("ITBankTest-data.xml")
 	public void deleteExchangeRates() {
