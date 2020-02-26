@@ -1,7 +1,7 @@
 - build:
     db: true
     mq: true
-    wiremock: false
+    wiremock: true
     promote: true    
     tests: true    
     wiremock_environment_variables:
