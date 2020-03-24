@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
+import com.estafet.openshift.boost.commons.lib.properties.PropertyUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,16 +18,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentCurrencyConverterMessage;
-import com.estafet.openshift.boost.commons.lib.properties.PropertyUtils;
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
 public class ITBankTest {
 
 	CurrencyConverterConsumer topic = new CurrencyConverterConsumer();
@@ -42,7 +40,6 @@ public class ITBankTest {
 	}
 
 	@Test
-	@DatabaseSetup("ITBankTest-data.xml")
 	public void testGetAccount() {
 		get("/account/1000").then()
 			.statusCode(HttpURLConnection.HTTP_OK)
@@ -56,7 +53,6 @@ public class ITBankTest {
 	}
 
 	@Test
-	@DatabaseSetup("ITBankTest-data.xml")
 	public void testCredit() {
 		given().contentType(ContentType.JSON)
 			.body("{ \"amount\": 7800.67 }")
@@ -70,7 +66,6 @@ public class ITBankTest {
 	}
 
 	@Test
-	@DatabaseSetup("ITBankTest-data.xml")
 	public void testDedit() {
 		given().contentType(ContentType.JSON)
 			.body("{ \"amount\": 20.0 }")
@@ -86,7 +81,6 @@ public class ITBankTest {
 	}
 	
 	@Test
-	@DatabaseSetup("ITBankTest-data.xml")
 	public void testCreateAccount() {
 		given().contentType(ContentType.JSON)
 			.body("{\"accountName\": \"Peter\", \"currency\": \"EUR\" }")
@@ -101,7 +95,6 @@ public class ITBankTest {
 	}
 
 	@Test
-	@DatabaseSetup("ITBankTest-data.xml")
 	public void deleteExchangeRates() {
 		delete("accounts").then()
 		.statusCode(HttpURLConnection.HTTP_OK)
@@ -109,7 +102,6 @@ public class ITBankTest {
 	}
 	
 	@Test
-	@DatabaseSetup("ITBankTest-data.xml")
 	public void testConsumeBankPayment() {
 		BankPaymentTopicProducer.send("{\"walletAddress\":\"efgh\",\"amount\":200.65,\"transactionId\":\"123456\"}");
 		BankPaymentCurrencyConverterMessage message = topic.consume();
@@ -120,7 +112,6 @@ public class ITBankTest {
 	}
 	
 	@Test
-	@DatabaseSetup("ITBankTest-data.xml")
 	public void testConsumeBankPaymentConfirmation() {
 		get("/account/2000").then()
 			.statusCode(HttpURLConnection.HTTP_OK)

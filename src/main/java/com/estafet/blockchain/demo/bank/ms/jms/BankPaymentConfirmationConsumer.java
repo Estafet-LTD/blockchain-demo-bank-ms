@@ -6,7 +6,6 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.estafet.blockchain.demo.bank.ms.event.MessageEventHandler;
 import com.estafet.blockchain.demo.bank.ms.service.TransactionService;
 import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentConfirmationMessage;
 
@@ -22,17 +21,12 @@ public class BankPaymentConfirmationConsumer {
 	
 	@Autowired
 	private TransactionService transactionService;
-	
-	@Autowired
-	private MessageEventHandler messageEventHandler;
 
 	@Transactional
 	@JmsListener(destination = TOPIC, containerFactory = "myFactory")
 	public void onMessage(String message, @Header("message.event.interaction.reference") String reference) {
 		try {
-			if (messageEventHandler.isValid(TOPIC, reference)) {
-				transactionService.handleBankPaymentConfirmationMessage(BankPaymentConfirmationMessage.fromJSON(message));
-			}
+			transactionService.handleBankPaymentConfirmationMessage(BankPaymentConfirmationMessage.fromJSON(message));
 		} finally {
 			if (tracer.activeSpan() != null) {
 				tracer.activeSpan().close();	

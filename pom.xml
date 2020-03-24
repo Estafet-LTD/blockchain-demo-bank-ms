@@ -6,9 +6,9 @@
 
 	<parent>
 		<groupId>com.estafet.openshift.boost</groupId>
-		<artifactId>estafet-openshift-boost-springboot-db</artifactId>
-		<version>1.0.5</version>
-		<relativePath />
+		<artifactId>estafet-openshift-boost-springboot-couchbase</artifactId>
+		<version>1.1.1</version>
+		<relativePath/>
 	</parent>
 
 	<properties>
@@ -23,6 +23,11 @@
 	</scm>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.estafet.openshift.boost</groupId>
+			<artifactId>estafet-openshift-boost-commons-lib</artifactId>
+			<version>0.0.5</version>
+		</dependency>
 		<dependency>
 			<groupId>com.estafet.blockchain.demo</groupId>
 			<artifactId>estafet-blockchain-demo-messages-lib</artifactId>

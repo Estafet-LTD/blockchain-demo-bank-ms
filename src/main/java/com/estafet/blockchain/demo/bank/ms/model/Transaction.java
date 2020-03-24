@@ -1,43 +1,40 @@
 package com.estafet.blockchain.demo.bank.ms.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
+import com.couchbase.client.java.repository.annotation.Field;
+import com.couchbase.client.java.repository.annotation.Id;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.couchbase.core.mapping.Document;
 
-@Entity
-@Table(name = "TRANSACTION")
+import javax.validation.constraints.NotNull;
+
+@Document
 public class Transaction {
 
 	@Id
-	@SequenceGenerator(name = "TRANSACTION_ID_SEQ", sequenceName = "TRANSACTION_ID_SEQ", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRANSACTION_ID_SEQ")
-	@Column(name = "TRANSACTION_ID")
+	@NotNull
+	@Field("transaction_id")
 	private Integer id;
 
-	@Column(name = "WALLET_TRANSACTION_ID", nullable = true)
+	@NotNull
+	@Field("wallet_transaction_id")
 	private String walletTransactionId;
 
 	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "ACCOUNT_ID", nullable = false, referencedColumnName = "ACCOUNT_ID", foreignKey = @ForeignKey(name = "TRANSACTION_TO_ACCOUNT_FK"))
+/*	@ManyToOne
+	@JoinColumn(name = "ACCOUNT_ID", nullable = false, referencedColumnName = "ACCOUNT_ID", foreignKey = @ForeignKey(name = "TRANSACTION_TO_ACCOUNT_FK"))*/
+	@NotNull
+	@Field
 	private Account transactionAccount;
 
-	@Column(name = "AMOUNT", nullable = false)
+	@NotNull
 	private double amount = 0;
 
-	@Column(name = "STATUS", nullable = false)
+	@NotNull
+	@Field
 	private String status = "CLEARED";
 
-	@Column(name = "DESCRIPTION", nullable = false)
+	@NotNull
+	@Field
 	private String description;
 
 	public Integer getId() {

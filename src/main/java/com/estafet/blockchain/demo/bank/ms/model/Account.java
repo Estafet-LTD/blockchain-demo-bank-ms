@@ -1,42 +1,37 @@
 package com.estafet.blockchain.demo.bank.ms.model;
 
+import com.couchbase.client.java.repository.annotation.Field;
+import com.couchbase.client.java.repository.annotation.Id;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.data.couchbase.core.mapping.Document;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "ACCOUNT")
+@Document
 public class Account {
 
 	@Id
-	@SequenceGenerator(name = "ACCOUNT_ID_SEQ", sequenceName = "ACCOUNT_ID_SEQ", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACCOUNT_ID_SEQ")
-	@Column(name = "ACCOUNT_ID")
-	private Integer id;
+	@NotNull
+	@Field(value = "account_id")
+	private String id;
 
-	@Column(name = "WALLET_ADDRESS", nullable = false)
+	@NotNull
+	@Field(value = "wallet_address")
 	private String walletAddress;
 
-	@Column(name = "ACCOUNT_NAME", nullable = false)
+	@NotNull
+	@Field("account_name")
 	private String accountName;
 
-	@Column(name = "CURRENCY", nullable = false)
+	@NotNull
+	@Field
 	private String currency;
 
-	@OneToMany(mappedBy = "transactionAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@OneToMany(mappedBy = "transactionAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Transaction> transactions = new HashSet<Transaction>();
 
 	public double getBalance() {
@@ -98,11 +93,11 @@ public class Account {
 		return tx;
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

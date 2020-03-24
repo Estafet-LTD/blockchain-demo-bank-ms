@@ -1,79 +1,26 @@
 package com.estafet.blockchain.demo.bank.ms.service;
 
-import org.springframework.transaction.annotation.Transactional;
+import com.estafet.blockchain.demo.bank.ms.model.Account;
+import com.estafet.blockchain.demo.bank.ms.model.Money;
+import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentMessage;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+public interface AccountService {
 
-import com.estafet.blockchain.demo.bank.ms.dao.AccountDAO;
-import com.estafet.blockchain.demo.bank.ms.jms.CurrencyConverterProducer;
-import com.estafet.blockchain.demo.bank.ms.model.Account;
-import com.estafet.blockchain.demo.bank.ms.model.Money;
-import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentCurrencyConverterMessage;
-import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentMessage;
+	Account getAccount(String accountId);
 
-@Service
-public class AccountService {
+	void deleteAll();
 
-	@Autowired
-	private AccountDAO accountDAO;
+	Account createAccount(Account account);
 
-	@Autowired
-	private CurrencyConverterProducer currencyConverterProducer;
-	
-	@Autowired
-	private BlockchainGatewayService blockchainGatewayService;
+	Account credit(String accountId, Money money);
 
-	@Transactional(readOnly = true)
-	public Account getAccount(Integer accountId) {
-		return accountDAO.getAccount(accountId);
-	}
+	Account debit(String accountId, Money money);
 
-	@Transactional
-	public void deleteAll() {
-		accountDAO.deleteAll();
-	}
-	
-	@Transactional
-	public Account createAccount(Account account) {
-		account.setWalletAddress(blockchainGatewayService.generateWalletAddress().getAddress());
-		return accountDAO.createAccount(account);
-	}
+	void handleBankPaymentMessage(BankPaymentMessage message);
 
-	@Transactional
-	public Account credit(int accountId, Money money) {
-		Account account = accountDAO.getAccount(accountId);
-		account.credit(money);
-		accountDAO.updateAccount(account);
-		return account;
-	}
+	Account getAccountByWalletAddress(String walletAddress);
 
-	@Transactional
-	public Account debit(int accountId, Money money) {
-		Account account = accountDAO.getAccount(accountId);
-		account.debit(money);
-		accountDAO.updateAccount(account);
-		return account;
-	}
-
-	@Transactional
-	public void handleBankPaymentMessage(BankPaymentMessage message) {
-		Account account = accountDAO.getAccountByWalletAddress(message.getWalletAddress());
-		account.debit(new Money(message.getTransactionId(), message.getAmount()));
-		accountDAO.updateAccount(account);
-		currencyConverterProducer.sendMessage(new BankPaymentCurrencyConverterMessage(message.getAmount(),
-				account.getCurrency(), message.getWalletAddress(), "ddhshs", message.getTransactionId()));
-	}
-
-	public Account getAccountByWalletAddress(String walletAddress) {
-		return accountDAO.getAccountByWalletAddress(walletAddress);
-	}
-	
-	@Transactional(readOnly = true)
-	public List<Account> getAccounts() {
-		return accountDAO.getAccounts();
-	}
-
+	List<Account> getAccounts();
 }

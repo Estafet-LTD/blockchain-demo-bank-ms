@@ -33,7 +33,7 @@ public class BankController {
 	}
 
 	@GetMapping(value = "/account/{id}")
-	public Account getAccount(@PathVariable int id) {
+	public Account getAccountById(@PathVariable String id) {
 		return accountService.getAccount(id);
 	}
 	
@@ -48,12 +48,12 @@ public class BankController {
 	}
 
 	@PostMapping(value = "/account/{id}/credit")
-	public ResponseEntity<Account> credit(@PathVariable int id, @RequestBody Money money) {
+	public ResponseEntity<Account> credit(@PathVariable String id, @RequestBody Money money) {
 		return new ResponseEntity<Account>(accountService.credit(id, money), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/account/{id}/debit")
-	public ResponseEntity<Account> debit(@PathVariable int id, @RequestBody Money money) {
+	public ResponseEntity<Account> debit(@PathVariable String id, @RequestBody Money money) {
 		return new ResponseEntity<Account>(accountService.debit(id, money), HttpStatus.OK);
 	}
 	
