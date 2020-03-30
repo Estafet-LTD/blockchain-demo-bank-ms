@@ -9,7 +9,6 @@ import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentConfirmationMess
 import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentCurrencyConverterMessage;
 import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.couchbase.core.CouchbaseTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,9 +25,6 @@ public class AccountServiceImpl implements AccountService{
 
     @Autowired
     private AccountRepository accountRepository;
-
-    @Autowired
-    private CouchbaseTemplate template;
 
     @Transactional(readOnly = true)
     @Override

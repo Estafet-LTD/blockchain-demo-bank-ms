@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dataset>
-	<account account_id="1000" account_name="Dennis" currency="USD"  wallet_address="abcd"/>
-	<transaction transaction_id="1000" amount="200" status="CLEARED" description="Opening Deposit" wallet_transaction_id="2345" account_id="1000"/>
-	<transaction transaction_id="1001" amount="-50" status="CLEARED" description="User Withdrawal" wallet_transaction_id="3456" account_id="1000"/>
-	<account account_id="2000" account_name="Iryna" currency="GBP" wallet_address="efgh"/>
-	<transaction transaction_id="1002" amount="5000" status="CLEARED" description="Opening Deposit" wallet_transaction_id="775655" account_id="2000"/>
-	<transaction transaction_id="1003" amount="400" status="CLEARED" description="User Deposit" wallet_transaction_id="3432222" account_id="2000"/>
-</dataset>
