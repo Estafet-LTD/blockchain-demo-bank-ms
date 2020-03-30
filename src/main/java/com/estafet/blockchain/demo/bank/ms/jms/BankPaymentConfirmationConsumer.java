@@ -1,12 +1,11 @@
 package com.estafet.blockchain.demo.bank.ms.jms;
 
+import com.estafet.blockchain.demo.bank.ms.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.estafet.blockchain.demo.bank.ms.service.TransactionService;
 import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentConfirmationMessage;
 
 import io.opentracing.Tracer;
@@ -20,13 +19,13 @@ public class BankPaymentConfirmationConsumer {
 	private Tracer tracer;
 	
 	@Autowired
-	private TransactionService transactionService;
+	private AccountService accountService;
 
 	@Transactional
 	@JmsListener(destination = TOPIC, containerFactory = "myFactory")
-	public void onMessage(String message, @Header("message.event.interaction.reference") String reference) {
+	public void onMessage(String message) {
 		try {
-			transactionService.handleBankPaymentConfirmationMessage(BankPaymentConfirmationMessage.fromJSON(message));
+			accountService.handleBankPaymentConfirmationMessage(BankPaymentConfirmationMessage.fromJSON(message));
 		} finally {
 			if (tracer.activeSpan() != null) {
 				tracer.activeSpan().close();	

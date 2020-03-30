@@ -1,32 +1,19 @@
 package com.estafet.blockchain.demo.bank.ms.model;
 
 import com.couchbase.client.java.repository.annotation.Field;
-import com.couchbase.client.java.repository.annotation.Id;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.data.couchbase.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Objects;
 
-@Document
-public class Transaction {
+public class Transaction implements Serializable {
 
-	@Id
-	@NotNull
-	@Field("transaction_id")
-	private Integer id;
-
-	@NotNull
-	@Field("wallet_transaction_id")
-	private String walletTransactionId;
-
-	@JsonIgnore
-/*	@ManyToOne
-	@JoinColumn(name = "ACCOUNT_ID", nullable = false, referencedColumnName = "ACCOUNT_ID", foreignKey = @ForeignKey(name = "TRANSACTION_TO_ACCOUNT_FK"))*/
 	@NotNull
 	@Field
-	private Account transactionAccount;
+	private String walletTransactionId;
 
 	@NotNull
+	@Field
 	private double amount = 0;
 
 	@NotNull
@@ -37,12 +24,15 @@ public class Transaction {
 	@Field
 	private String description;
 
-	public Integer getId() {
-		return id;
+	public Transaction(){
+
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public Transaction(String walletTransactionId, double amount, String status, String description) {
+		this.walletTransactionId = walletTransactionId;
+		this.amount = amount;
+		this.status = status;
+		this.description = description;
 	}
 
 	public String getWalletTransactionId() {
@@ -51,14 +41,6 @@ public class Transaction {
 
 	public void setWalletTransactionId(String walletTransactionId) {
 		this.walletTransactionId = walletTransactionId;
-	}
-
-	public Account getTransactionAccount() {
-		return transactionAccount;
-	}
-
-	public void setTransactionAccount(Account transactionAccount) {
-		this.transactionAccount = transactionAccount;
 	}
 
 	public double getAmount() {
@@ -86,28 +68,19 @@ public class Transaction {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Transaction that = (Transaction) o;
+		return Double.compare(that.amount, amount) == 0 &&
+				Objects.equals(walletTransactionId, that.walletTransactionId) &&
+				Objects.equals(status, that.status) &&
+				Objects.equals(description, that.description);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Transaction other = (Transaction) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+	public int hashCode() {
+		return Objects.hash(walletTransactionId, amount, status, description);
 	}
 
 	public boolean isCleared() {

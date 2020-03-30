@@ -3,10 +3,13 @@ package com.estafet.blockchain.demo.bank.ms.service;
 import com.estafet.blockchain.demo.bank.ms.jms.CurrencyConverterProducer;
 import com.estafet.blockchain.demo.bank.ms.model.Account;
 import com.estafet.blockchain.demo.bank.ms.model.Money;
+import com.estafet.blockchain.demo.bank.ms.model.Transaction;
 import com.estafet.blockchain.demo.bank.ms.repository.AccountRepository;
+import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentConfirmationMessage;
 import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentCurrencyConverterMessage;
 import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.couchbase.core.CouchbaseTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +26,9 @@ public class AccountServiceImpl implements AccountService{
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private CouchbaseTemplate template;
 
     @Transactional(readOnly = true)
     @Override
@@ -80,5 +86,21 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public List<Account> getAccounts() {
         return accountRepository.findAll();
+    }
+
+    @Transactional
+    @Override
+    public void handleBankPaymentConfirmationMessage(BankPaymentConfirmationMessage message) {
+        Account account = accountRepository.findByWalletTransactionId(message.getTransactionId());
+
+        if(account!=null && account.getTransactions().size()!=0){
+            for(Transaction transaction: account.getTransactions()){
+                if(transaction.getWalletTransactionId().equals(message.getTransactionId())){
+                    transaction.setStatus("CLEARED");
+                    accountRepository.getCouchbaseOperations().update(account);
+                }
+            }
+        }
+
     }
 }

@@ -2,37 +2,57 @@ package com.estafet.blockchain.demo.bank.ms.model;
 
 import com.couchbase.client.java.repository.annotation.Field;
 import com.couchbase.client.java.repository.annotation.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.couchbase.core.mapping.Document;
+import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
+import org.springframework.data.couchbase.core.mapping.id.GenerationStrategy;
+import org.springframework.data.couchbase.core.mapping.id.IdAttribute;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Document
-public class Account {
+public class Account implements Serializable {
 
-	@Id
-	@NotNull
-	@Field(value = "account_id")
+	@Id @GeneratedValue(strategy = GenerationStrategy.USE_ATTRIBUTES)
 	private String id;
 
 	@NotNull
-	@Field(value = "wallet_address")
+	@Field
+	@IdAttribute(order = 0)
 	private String walletAddress;
 
 	@NotNull
-	@Field("account_name")
+	@Field
+	@IdAttribute(order = 1)
 	private String accountName;
 
 	@NotNull
 	@Field
+	@IdAttribute(order = 2)
 	private String currency;
 
-//	@OneToMany(mappedBy = "transactionAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Field
 	private Set<Transaction> transactions = new HashSet<Transaction>();
+
+	public Account(){
+
+	}
+
+	public Account(String id, String walletAddress, String accountName, String currency, Set<Transaction> transactions) {
+		this.id = id;
+		this.walletAddress = walletAddress;
+		this.accountName = accountName;
+		this.currency = currency;
+		this.transactions = transactions;
+	}
 
 	public double getBalance() {
 		double balance = 0;
@@ -126,9 +146,12 @@ public class Account {
 	}
 
 	private Account addTransaction(Transaction transaction) {
-		transaction.setTransactionAccount(this);
 		transactions.add(transaction);
 		return this;
+	}
+
+	public void setTransactions(Set<Transaction> transactions) {
+		this.transactions = transactions;
 	}
 
 	public Set<Transaction> getTransactions() {
@@ -158,6 +181,14 @@ public class Account {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public static Account fromJSON(String message) {
+		try {
+			return (Account)(new ObjectMapper()).readValue(message, Account.class);
+		} catch (IOException var2) {
+			throw new RuntimeException(var2);
+		}
 	}
 
 	public String toJSON() {

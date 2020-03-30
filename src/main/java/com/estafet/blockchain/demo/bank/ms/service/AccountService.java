@@ -2,6 +2,7 @@ package com.estafet.blockchain.demo.bank.ms.service;
 
 import com.estafet.blockchain.demo.bank.ms.model.Account;
 import com.estafet.blockchain.demo.bank.ms.model.Money;
+import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentConfirmationMessage;
 import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentMessage;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface AccountService {
 	Account getAccountByWalletAddress(String walletAddress);
 
 	List<Account> getAccounts();
+
+	void handleBankPaymentConfirmationMessage(BankPaymentConfirmationMessage message);
 }

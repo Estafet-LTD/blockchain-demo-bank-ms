@@ -2,6 +2,7 @@ package com.estafet.blockchain.demo.bank.ms.repository;
 
 import com.estafet.blockchain.demo.bank.ms.model.Account;
 import org.springframework.data.couchbase.core.query.N1qlPrimaryIndexed;
+import org.springframework.data.couchbase.core.query.Query;
 import org.springframework.data.couchbase.core.query.ViewIndexed;
 import org.springframework.data.couchbase.repository.CouchbasePagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
@@ -16,4 +17,9 @@ public interface AccountRepository extends CouchbasePagingAndSortingRepository<A
     List<Account> findAll();
 
     Account findByWalletAddress(String walletAddress);
+
+    @Query(" #{#n1ql.selectEntity} where #{#n1ql.filter} and" +
+            " any account_transaction IN transactions SATISFIES account_transaction.walletTransactionId = $1 END ")
+    Account findByWalletTransactionId(String walletTransactionId);
+
 }
