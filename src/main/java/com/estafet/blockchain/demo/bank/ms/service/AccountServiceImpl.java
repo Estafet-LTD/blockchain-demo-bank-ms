@@ -10,7 +10,6 @@ import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentCurrencyConverte
 import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,26 +25,22 @@ public class AccountServiceImpl implements AccountService{
     @Autowired
     private AccountRepository accountRepository;
 
-    @Transactional(readOnly = true)
     @Override
     public Account getAccount(String accountId) {
         return accountRepository.findOne(accountId);
     }
 
-    @Transactional
     @Override
     public void deleteAll() {
         accountRepository.deleteAll();
     }
 
-    @Transactional
     @Override
     public Account createAccount(Account account) {
         account.setWalletAddress(blockchainGatewayService.generateWalletAddress().getAddress());
         return accountRepository.save(account);
     }
 
-    @Transactional
     @Override
     public Account credit(String accountId, Money money) {
         Account account = accountRepository.findOne(accountId);
@@ -54,7 +49,6 @@ public class AccountServiceImpl implements AccountService{
         return account;
     }
 
-    @Transactional
     @Override
     public Account debit(String accountId, Money money) {
         Account account = accountRepository.findOne(accountId);
@@ -63,7 +57,6 @@ public class AccountServiceImpl implements AccountService{
         return account;
     }
 
-    @Transactional
     @Override
     public void handleBankPaymentMessage(BankPaymentMessage message) {
         Account account = accountRepository.findByWalletAddress(message.getWalletAddress());
@@ -78,13 +71,11 @@ public class AccountServiceImpl implements AccountService{
         return accountRepository.findByWalletAddress(walletAddress);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Account> getAccounts() {
         return accountRepository.findAll();
     }
 
-    @Transactional
     @Override
     public void handleBankPaymentConfirmationMessage(BankPaymentConfirmationMessage message) {
         Account account = accountRepository.findByWalletTransactionId(message.getTransactionId());
