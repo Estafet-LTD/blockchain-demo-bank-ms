@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.estafet.blockchain.demo</groupId>
 	<artifactId>estafet-blockchain-demo-bank-ms</artifactId>
-	<version>1.0.10-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 
 	<parent>
 		<groupId>com.estafet.openshift.boost</groupId>
