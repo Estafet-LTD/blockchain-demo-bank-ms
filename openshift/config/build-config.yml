@@ -1,4 +1,4 @@
-config-map:
+config_map:
   - name: JBOSS_A_MQ_BROKER_URL
     value: tcp://broker-amq-tcp.blockchain-demo-build.svc:61616
   - name: BANK_MS_JDBC_URL
