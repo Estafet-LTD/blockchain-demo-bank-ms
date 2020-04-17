@@ -19,6 +19,18 @@ parameters:
   name: MIN_MEMORY
   value: 50Mi
   required: true
+- description: Defines max cpu
+  name: MAX_CPU
+  value: 1
+  required: true  
+- description: Defines min memory
+  name: MIN_CPU
+  value: 50m
+  required: true
+- description: Defines number of replicas
+  name: REPLICAS
+  value: 1
+  required: true
 - description: Defines the namespace for the image stream
   name: DOCKER_NAMESPACE
   required: true  
@@ -48,7 +60,7 @@ objects:
     name: "${ENV}${MICROSERVICE}"
     namespace: ${NAMESPACE}
   spec:
-    replicas: 1
+    replicas: ${REPLICAS}
     revisionHistoryLimit: 10
     selector:
       app: "${ENV}${MICROSERVICE}"
@@ -75,25 +87,60 @@ objects:
               - name: BLOCKCHAIN_GATEWAY_MS_SERVICE_URI
                 value: 'http://${ENV}blockchain-gateway-ms.${NAMESPACE}.svc:8080'
               - name: JBOSS_A_MQ_BROKER_PASSWORD
-                value: amq
+                valueFrom:
+                  secretKeyRef:
+                    name: "${ENV}${MICROSERVICE}" 
+                    key: JBOSS_A_MQ_BROKER_PASSWORD
               - name: JBOSS_A_MQ_BROKER_URL
-                value: 'tcp://broker-amq-tcp.${NAMESPACE}.svc:61616'
+                valueFrom:
+                  configMapKeyRef:
+                    name: "${ENV}${MICROSERVICE}" 
+                    key: JBOSS_A_MQ_BROKER_URL
               - name: JBOSS_A_MQ_BROKER_USER
-                value: amq
+                valueFrom:
+                  secretKeyRef:
+                    name: "${ENV}${MICROSERVICE}" 
+                    key: JBOSS_A_MQ_BROKER_USER
               - name: BANK_MS_DB_PASSWORD
-                value: welcome1
+                valueFrom:
+                  secretKeyRef:
+                    name: "${ENV}${MICROSERVICE}" 
+                    key: BANK_MS_DB_PASSWORD
               - name: BANK_MS_DB_USER
-                value: postgres
+                valueFrom:
+                  secretKeyRef:
+                    name: "${ENV}${MICROSERVICE}" 
+                    key: BANK_MS_DB_USER
               - name: BANK_MS_JDBC_URL
-                value: jdbc:postgresql://postgresql.${NAMESPACE}.svc:5432/${NAMESPACE}-${MICROSERVICE}
+                valueFrom:
+                  configMapKeyRef:
+                    name: "${ENV}${MICROSERVICE}" 
+                    key: BANK_MS_JDBC_URL
+              - name: JAEGER_SERVICE_NAME
+                valueFrom:
+                  configMapKeyRef:
+                    name: "${ENV}${MICROSERVICE}" 
+                    key: JAEGER_SERVICE_NAME
               - name: JAEGER_SAMPLER_TYPE
-                value: const
+                valueFrom:
+                  configMapKeyRef:
+                    name: "${ENV}${MICROSERVICE}" 
+                    key: JAEGER_SAMPLER_TYPE
               - name: JAEGER_SAMPLER_PARAM
-                value: '1'
+                valueFrom:
+                  configMapKeyRef:
+                    name: "${ENV}${MICROSERVICE}" 
+                    key: JAEGER_SAMPLER_PARAM
               - name: JAEGER_SAMPLER_MANAGER_HOST_PORT
-                value: jaeger-agent.${NAMESPACE}.svc:5778
+                valueFrom:
+                  configMapKeyRef:
+                    name: "${ENV}${MICROSERVICE}" 
+                    key: JAEGER_SAMPLER_MANAGER_HOST_PORT
               - name: JAEGER_AGENT_HOST
-                value: jaeger-agent.${NAMESPACE}.svc
+                valueFrom:
+                  configMapKeyRef:
+                    name: "${ENV}${MICROSERVICE}" 
+                    key: JAEGER_AGENT_HOST
             image: ${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${MICROSERVICE}:${DOCKER_IMAGE_LABEL}
             imagePullPolicy: Always
             name: "${ENV}${MICROSERVICE}"
@@ -116,10 +163,10 @@ objects:
                 scheme: HTTP
             resources:
               limits:
-                cpu: '1'
+                cpu: ${MAX_CPU}
                 memory: ${MAX_MEMORY}
               requests:
-                cpu: 50m
+                cpu: ${MIN_CPU}
                 memory: ${MIN_MEMORY}
             terminationMessagePath: /dev/termination-log
             terminationMessagePolicy: File

@@ -1,0 +1,15 @@
+config-map:
+  - name: JBOSS_A_MQ_BROKER_URL
+    value: "tcp://broker-amq-tcp.{{ project }}.svc:61616"
+  - name: BANK_MS_JDBC_URL
+    value: "jdbc:postgresql://postgresql.{{ project }}.svc:5432/{{ project }}-bank-ms"
+  - name: JAEGER_SERVICE_NAME
+    value: bank-ms
+  - name: JAEGER_SAMPLER_TYPE
+    value: const
+  - name: JAEGER_SAMPLER_PARAM
+    value: 1
+  - name: JAEGER_SAMPLER_MANAGER_HOST_PORT
+    value: "jaeger-agent.{{ project }}.svc:5778"    
+  - name: JAEGER_AGENT_HOST
+    value: "jaeger-agent.{{ project }}.svc"      
