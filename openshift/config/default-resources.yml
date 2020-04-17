@@ -1,11 +1,6 @@
 resources:
-  - name: MAX_MEMORY
-    value: 600Mi
-  - name: MIN_MEMORY
-    value: 50Mi
-  - name: MAX_CPU
-    value: 1
-  - name: MIN_CPU
-    value: 50m
-  - name: REPLICAS
-    value: 1    
+  max_memory: 600Mi
+  min_memory: 50Mi
+  max_cpu: 1
+  min_cpu: 50m
+  replicas: 1   
