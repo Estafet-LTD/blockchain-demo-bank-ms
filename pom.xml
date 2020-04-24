@@ -2,13 +2,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.estafet.blockchain.demo</groupId>
 	<artifactId>estafet-blockchain-demo-bank-ms</artifactId>
-	<version>1.0.7-SNAPSHOT</version>
+	<version>1.1.3-SNAPSHOT</version>
 
 	<parent>
 		<groupId>com.estafet.openshift.boost</groupId>
-		<artifactId>estafet-openshift-boost-springboot-couchbase</artifactId>
-		<version>1.1.1</version>
-		<relativePath/>
+		<artifactId>estafet-openshift-boost-springboot-db</artifactId>
+		<version>1.1.4</version>
+		<relativePath />
 	</parent>
 
 	<properties>
@@ -24,24 +24,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.estafet.openshift.boost</groupId>
-			<artifactId>estafet-openshift-boost-commons-lib</artifactId>
-			<version>0.0.5</version>
-		</dependency>
-		<dependency>
 			<groupId>com.estafet.blockchain.demo</groupId>
 			<artifactId>estafet-blockchain-demo-messages-lib</artifactId>
-			<version>0.0.9</version>
-		</dependency>
-		<dependency>
-			<groupId>org.web3j</groupId>
-			<artifactId>web3j-spring-boot-starter</artifactId>
-			<version>1.6.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<version>0.0.10</version>
 		</dependency>
 	</dependencies>
 </project>
