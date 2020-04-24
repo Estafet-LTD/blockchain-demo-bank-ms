@@ -50,12 +50,14 @@ public class ITBankTest {
 		account.setWalletAddress("abcd");
 
 		Transaction transaction = new Transaction();
+		transaction.setOrder(1);
 		transaction.setAmount(200);
 		transaction.setStatus("CLEARED");
 		transaction.setDescription("Opening Deposit");
 		transaction.setWalletTransactionId("2345");
 
 		Transaction transaction1 = new Transaction();
+		transaction1.setOrder(2);
 		transaction1.setAmount(-50);
 		transaction1.setStatus("CLEARED");
 		transaction1.setDescription("User Withdrawal");
@@ -77,11 +79,13 @@ public class ITBankTest {
 		Transaction transaction2 = new Transaction();
 		Transaction transaction3 = new Transaction();
 
+		transaction2.setOrder(3);
 		transaction2.setAmount(5000);
 		transaction2.setStatus("CLEARED");
 		transaction2.setDescription("Opening Deposit");
 		transaction2.setWalletTransactionId("775655");
 
+		transaction3.setOrder(4);
 		transaction3.setAmount(400);
 		transaction3.setStatus("CLEARED");
 		transaction3.setDescription("User Deposit");

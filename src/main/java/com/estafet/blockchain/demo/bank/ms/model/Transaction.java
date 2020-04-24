@@ -10,6 +10,10 @@ public class Transaction implements Serializable {
 
 	@NotNull
 	@Field
+	private Integer order;
+
+	@NotNull
+	@Field
 	private String walletTransactionId;
 
 	@NotNull
@@ -28,11 +32,20 @@ public class Transaction implements Serializable {
 
 	}
 
-	public Transaction(String walletTransactionId, double amount, String status, String description) {
+	public Transaction(Integer order, String walletTransactionId, double amount, String status, String description) {
+		this.order=order;
 		this.walletTransactionId = walletTransactionId;
 		this.amount = amount;
 		this.status = status;
 		this.description = description;
+	}
+
+	public Integer getOrder() {
+		return order;
+	}
+
+	public void setOrder(Integer order) {
+		this.order = order;
 	}
 
 	public String getWalletTransactionId() {
@@ -75,12 +88,13 @@ public class Transaction implements Serializable {
 		return Double.compare(that.amount, amount) == 0 &&
 				Objects.equals(walletTransactionId, that.walletTransactionId) &&
 				Objects.equals(status, that.status) &&
-				Objects.equals(description, that.description);
+				Objects.equals(description, that.description) &&
+				Objects.equals(order, that.order);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(walletTransactionId, amount, status, description);
+		return Objects.hash(walletTransactionId, amount, status, description ,order);
 	}
 
 	public boolean isCleared() {
