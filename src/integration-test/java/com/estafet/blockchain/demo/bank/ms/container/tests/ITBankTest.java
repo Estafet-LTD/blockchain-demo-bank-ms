@@ -28,8 +28,8 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
 @RunWith(SpringRunner.class)
-@ActiveProfiles(value = "test")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
+		properties = "classpath:integration-test.properties")
 public class ITBankTest {
 
 	CurrencyConverterConsumer topic = new CurrencyConverterConsumer();
