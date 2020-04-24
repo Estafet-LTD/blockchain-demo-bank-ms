@@ -3,8 +3,10 @@ config_map:
     value: http://blockchain-gateway-ms.blockchain-demo-test.svc:8080
   - name: JBOSS_A_MQ_BROKER_URL
     value: tcp://broker-amq-tcp.blockchain-demo-test.svc:61616
-  - name: BANK_MS_JDBC_URL
-    value: jdbc:postgresql://postgresql.blockchain-demo-database.svc:5432/blockchain-demo-test-bank-ms
+  - name: COUCHBASE_HOST
+    value: couchbase.blockchain-demo-database.svc
+  - name: COUCHBASE_BUCKET
+    value: blockchain-demo-test-bank-ms
   - name: JAEGER_SERVICE_NAME
     value: test-bank-ms
   - name: JAEGER_SAMPLER_TYPE

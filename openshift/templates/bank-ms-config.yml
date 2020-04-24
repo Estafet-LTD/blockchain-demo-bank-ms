@@ -99,21 +99,21 @@ objects:
                   secretKeyRef:
                     name: "${ENV}${MICROSERVICE}" 
                     key: JBOSS_A_MQ_BROKER_USER
-              - name: BANK_MS_DB_PASSWORD
+              - name: COUCHBASE_PASSWORD
                 valueFrom:
                   secretKeyRef:
                     name: "${ENV}${MICROSERVICE}" 
-                    key: BANK_MS_DB_PASSWORD
-              - name: BANK_MS_DB_USER
-                valueFrom:
-                  secretKeyRef:
-                    name: "${ENV}${MICROSERVICE}" 
-                    key: BANK_MS_DB_USER
-              - name: BANK_MS_JDBC_URL
+                    key: COUCHBASE_PASSWORD
+              - name: COUCHBASE_HOST
                 valueFrom:
                   configMapKeyRef:
                     name: "${ENV}${MICROSERVICE}" 
-                    key: BANK_MS_JDBC_URL
+                    key: COUCHBASE_HOST
+              - name: COUCHBASE_BUCKET
+                valueFrom:
+                  configMapKeyRef:
+                    name: "${ENV}${MICROSERVICE}" 
+                    key: COUCHBASE_BUCKET
               - name: JAEGER_SERVICE_NAME
                 valueFrom:
                   configMapKeyRef:
