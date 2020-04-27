@@ -1,6 +1,7 @@
 package com.estafet.blockchain.demo.bank.ms.service;
 
 import com.estafet.blockchain.demo.bank.ms.jms.CurrencyConverterProducer;
+import com.estafet.blockchain.demo.bank.ms.jms.NewAccountProducer;
 import com.estafet.blockchain.demo.bank.ms.model.Account;
 import com.estafet.blockchain.demo.bank.ms.model.Money;
 import com.estafet.blockchain.demo.bank.ms.model.Transaction;
@@ -16,14 +17,13 @@ import java.util.List;
 @Service
 public class AccountServiceImpl implements AccountService{
 
-    @Autowired
     private CurrencyConverterProducer currencyConverterProducer;
 
-    @Autowired
     private BlockchainGatewayService blockchainGatewayService;
 
-    @Autowired
     private AccountRepository accountRepository;
+
+    private NewAccountProducer newAccountProducer;
 
     @Override
     public Account getAccount(String accountId) {
@@ -38,7 +38,9 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public Account createAccount(Account account) {
         account.setWalletAddress(blockchainGatewayService.generateWalletAddress().getAddress());
-        return accountRepository.save(account);
+        accountRepository.save(account);
+        newAccountProducer.sendMessage(account);
+        return account;
     }
 
     @Override
@@ -89,5 +91,25 @@ public class AccountServiceImpl implements AccountService{
             }
         }
 
+    }
+
+    @Autowired
+    public void setCurrencyConverterProducer(CurrencyConverterProducer currencyConverterProducer) {
+        this.currencyConverterProducer = currencyConverterProducer;
+    }
+
+    @Autowired
+    public void setBlockchainGatewayService(BlockchainGatewayService blockchainGatewayService) {
+        this.blockchainGatewayService = blockchainGatewayService;
+    }
+
+    @Autowired
+    public void setAccountRepository(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
+
+    @Autowired
+    public void setNewAccountProducer(NewAccountProducer newAccountProducer) {
+        this.newAccountProducer = newAccountProducer;
     }
 }
