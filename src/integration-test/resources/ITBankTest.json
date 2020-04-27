@@ -4,6 +4,7 @@
       "_class": "com.estafet.blockchain.demo.bank.ms.model.Account",
       "accountName": "Dennis",
       "currency": "USD",
+      "id": "1000",
       "transactions": [
         {
           "amount": 200,
@@ -26,6 +27,7 @@
       "_class": "com.estafet.blockchain.demo.bank.ms.model.Account",
       "accountName": "Iryna",
       "currency": "GBP",
+      "id": "2000",
       "transactions": [
         {
           "amount": 400,
