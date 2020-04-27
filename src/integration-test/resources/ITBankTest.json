@@ -9,14 +9,14 @@
         {
           "amount": 200,
           "description": "Opening Deposit",
-          "order": 1,
+          "id": 1,
           "status": "CLEARED",
           "walletTransactionId": "2345"
         },
         {
           "amount": -50,
           "description": "User Withdrawal",
-          "order": 2,
+          "id": 2,
           "status": "CLEARED",
           "walletTransactionId": "3456"
         }
@@ -32,14 +32,14 @@
         {
           "amount": 400,
           "description": "User Deposit",
-          "order": 2,
+          "id": 1,
           "status": "CLEARED",
           "walletTransactionId": "3432222"
         },
         {
           "amount": 5000,
           "description": "Opening Deposit",
-          "order": 1,
+          "id": 2,
           "status": "CLEARED",
           "walletTransactionId": "775655"
         }
