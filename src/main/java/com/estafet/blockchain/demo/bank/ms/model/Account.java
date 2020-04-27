@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.couchbase.core.mapping.Document;
-import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
-import org.springframework.data.couchbase.core.mapping.id.GenerationStrategy;
-import org.springframework.data.couchbase.core.mapping.id.IdAttribute;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -21,22 +18,19 @@ import javax.validation.constraints.NotNull;
 @Document
 public class Account implements Serializable {
 
-	@Id @GeneratedValue(strategy = GenerationStrategy.USE_ATTRIBUTES)
-	private String id;
+	@Id
+	private String id = String.valueOf((int)(999999999.0 * Math.random()));
 
 	@NotNull
 	@Field
-	@IdAttribute(order = 0)
 	private String walletAddress;
 
 	@NotNull
 	@Field
-	@IdAttribute(order = 1)
 	private String accountName;
 
 	@NotNull
 	@Field
-	@IdAttribute(order = 2)
 	private String currency;
 
 	@Field
