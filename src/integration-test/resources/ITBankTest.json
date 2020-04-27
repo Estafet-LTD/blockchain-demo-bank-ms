@@ -1,0 +1,48 @@
+{
+  "documents": [
+    {
+      "_class": "com.estafet.blockchain.demo.bank.ms.model.Account",
+      "accountName": "Dennis",
+      "currency": "USD",
+      "transactions": [
+        {
+          "amount": 200,
+          "description": "Opening Deposit",
+          "order": 1,
+          "status": "CLEARED",
+          "walletTransactionId": "2345"
+        },
+        {
+          "amount": -50,
+          "description": "User Withdrawal",
+          "order": 2,
+          "status": "CLEARED",
+          "walletTransactionId": "3456"
+        }
+      ],
+      "walletAddress": "abcd"
+    },
+    {
+      "_class": "com.estafet.blockchain.demo.bank.ms.model.Account",
+      "accountName": "Iryna",
+      "currency": "GBP",
+      "transactions": [
+        {
+          "amount": 400,
+          "description": "User Deposit",
+          "order": 2,
+          "status": "CLEARED",
+          "walletTransactionId": "3432222"
+        },
+        {
+          "amount": 5000,
+          "description": "Opening Deposit",
+          "order": 1,
+          "status": "CLEARED",
+          "walletTransactionId": "775655"
+        }
+      ],
+      "walletAddress": "efgh"
+    }
+  ]
+}
