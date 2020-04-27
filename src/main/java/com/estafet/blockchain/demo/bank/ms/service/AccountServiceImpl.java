@@ -84,7 +84,7 @@ public class AccountServiceImpl implements AccountService{
 
         if(account!=null && account.getTransactions().size()!=0){
             for(Transaction transaction: account.getTransactions()){
-                if(transaction.getWalletTransactionId().equals(message.getTransactionId())){
+                if(transaction.getWalletTransactionId()!=null && transaction.getWalletTransactionId().equals(message.getTransactionId())){
                     transaction.setStatus("CLEARED");
                     accountRepository.getCouchbaseOperations().update(account);
                 }
