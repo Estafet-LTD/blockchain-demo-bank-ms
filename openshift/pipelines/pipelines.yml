@@ -1,15 +1,12 @@
 build:
   db: true
   mq: true
-  wiremock: true
-  promote: true    
-  tests: true    
-  wiremock_environment_variables:
-    - name: BLOCKCHAIN_GATEWAY_MS_SERVICE_URI
-      value: http://wiremock-docker.blockchain-demo-build.svc:8080/bank-ms/blockchain-gateway-ms    
+  wiremock: false
+  promote: true
+  tests: true
 release:
-    db: true
+  db: true
 promote:
-    db: true
-    mq: true
-    expose: false
+  db: true
+  mq: true
+  expose: false
