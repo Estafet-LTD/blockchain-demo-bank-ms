@@ -9,8 +9,8 @@ import java.util.Objects;
 public class Transaction implements Serializable {
 
 	@NotNull
-	@Field
-	private Integer order;
+	@Field("transaction_id")
+	private Integer id;
 
 	@NotNull
 	@Field
@@ -32,20 +32,20 @@ public class Transaction implements Serializable {
 
 	}
 
-	public Transaction(Integer order, String walletTransactionId, double amount, String status, String description) {
-		this.order=order;
+	public Transaction(Integer id, String walletTransactionId, double amount, String status, String description) {
+		this.id=id;
 		this.walletTransactionId = walletTransactionId;
 		this.amount = amount;
 		this.status = status;
 		this.description = description;
 	}
 
-	public Integer getOrder() {
-		return order;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setOrder(Integer order) {
-		this.order = order;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getWalletTransactionId() {
@@ -86,15 +86,15 @@ public class Transaction implements Serializable {
 		if (o == null || getClass() != o.getClass()) return false;
 		Transaction that = (Transaction) o;
 		return Double.compare(that.amount, amount) == 0 &&
+				Objects.equals(id, that.id) &&
 				Objects.equals(walletTransactionId, that.walletTransactionId) &&
 				Objects.equals(status, that.status) &&
-				Objects.equals(description, that.description) &&
-				Objects.equals(order, that.order);
+				Objects.equals(description, that.description);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(walletTransactionId, amount, status, description ,order);
+		return Objects.hash(id, walletTransactionId, amount, status, description);
 	}
 
 	public boolean isCleared() {

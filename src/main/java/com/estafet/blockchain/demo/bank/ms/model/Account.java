@@ -84,7 +84,7 @@ public class Account implements Serializable {
 		Transaction tx = new Transaction();
 		tx.setWalletTransactionId(money.getWalletTransactionId());
 		tx.setAmount(money.getAmount() * -1.0d);
-		tx.setOrder(this.getTransactions().size()+1);
+		tx.setId(this.getTransactions().size()+1);
 		tx.setStatus("PENDING");
 		if (money.getWalletTransactionId() != null) {
 			tx.setDescription("Wallet Transfer to with transfer id - " + money.getWalletTransactionId());
@@ -99,7 +99,7 @@ public class Account implements Serializable {
 		Transaction tx = new Transaction();
 		tx.setWalletTransactionId(money.getWalletTransactionId());
 		tx.setAmount(money.getAmount());
-		tx.setOrder(this.getTransactions().size()+1);
+		tx.setId(this.getTransactions().size()+1);
 		if (transactions.isEmpty()) {
 			tx.setDescription("Opening Deposit");
 		} else {
