@@ -78,13 +78,13 @@ public class ITBankTest {
 		Transaction transaction2 = new Transaction();
 		Transaction transaction3 = new Transaction();
 
-		transaction2.setOrder(3);
+		transaction2.setOrder(1);
 		transaction2.setAmount(5000);
 		transaction2.setStatus("CLEARED");
 		transaction2.setDescription("Opening Deposit");
 		transaction2.setWalletTransactionId("775655");
 
-		transaction3.setOrder(4);
+		transaction3.setOrder(2);
 		transaction3.setAmount(400);
 		transaction3.setStatus("CLEARED");
 		transaction3.setDescription("User Deposit");
