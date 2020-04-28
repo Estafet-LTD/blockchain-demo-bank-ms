@@ -18,6 +18,8 @@ import javax.validation.constraints.NotNull;
 @Document
 public class Account implements Serializable {
 
+	private static final long serialVersionUID = -6555049816492252679L;
+
 	@Id
 	private String id = String.valueOf((int)(999999999.0 * Math.random()));
 
