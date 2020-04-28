@@ -79,11 +79,6 @@ objects:
       spec:
         containers:
           - env:
-              - name: BLOCKCHAIN_GATEWAY_MS_SERVICE_URI
-                valueFrom:
-                  configMapKeyRef:
-                    name: "${ENV}${MICROSERVICE}" 
-                    key: BLOCKCHAIN_GATEWAY_MS_SERVICE_URI
               - name: JBOSS_A_MQ_BROKER_PASSWORD
                 valueFrom:
                   secretKeyRef:
