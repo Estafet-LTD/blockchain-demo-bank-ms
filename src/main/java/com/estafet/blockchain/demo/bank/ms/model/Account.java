@@ -40,14 +40,6 @@ public class Account implements Serializable {
 
 	}
 
-	public Account(String id, String walletAddress, String accountName, String currency, Set<Transaction> transactions) {
-		this.id = id;
-		this.walletAddress = walletAddress;
-		this.accountName = accountName;
-		this.currency = currency;
-		this.transactions = transactions;
-	}
-
 	public double getBalance() {
 		double balance = 0;
 		for (Transaction transaction : transactions) {
@@ -62,7 +54,7 @@ public class Account implements Serializable {
 		double balance = 0;
 		for (Transaction transaction : transactions) {
 			if (!transaction.isCleared()) {
-				balance += transaction.getAmount();	
+				balance += transaction.getAmount();
 			}
 		}
 		return balance;

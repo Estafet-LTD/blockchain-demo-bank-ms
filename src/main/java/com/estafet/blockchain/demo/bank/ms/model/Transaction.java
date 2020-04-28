@@ -32,14 +32,6 @@ public class Transaction implements Serializable {
 
 	}
 
-	public Transaction(Integer id, String walletTransactionId, double amount, String status, String description) {
-		this.id=id;
-		this.walletTransactionId = walletTransactionId;
-		this.amount = amount;
-		this.status = status;
-		this.description = description;
-	}
-
 	public Integer getId() {
 		return id;
 	}
