@@ -2,7 +2,7 @@ config_map:
   - name: JBOSS_A_MQ_BROKER_URL
     value: tcp://broker-amq-tcp.blockchain-demo-mq-green.svc:61616
   - name: COUCHBASE_HOST
-    value: couchbase.blockchain-demo-database.svc
+    value: couchbase.blockchain-demo-prod.svc
   - name: COUCHBASE_BUCKET
     value: blockchain-demo-prod-bank-ms
   - name: JAEGER_SERVICE_NAME
