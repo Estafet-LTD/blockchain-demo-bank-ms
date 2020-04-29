@@ -8,7 +8,7 @@
       http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
 	<bean class="com.estafet.openshift.boost.couchbase.lib.spring.CouchbaseBucketFactoryBean">
-		<property name="host" value="couchbase.blockchain-demo-database.svc"/>
+		<property name="host" value="couchbase.blockchain-demo-build.svc"/>
 		<property name="bucket" value="blockchain-demo-build-bank-ms"/>
 		<property name="password" value="welcome1"/>
 	</bean>
