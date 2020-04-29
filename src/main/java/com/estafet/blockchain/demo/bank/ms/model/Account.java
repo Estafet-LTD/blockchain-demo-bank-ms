@@ -10,6 +10,7 @@ import org.springframework.data.couchbase.core.mapping.Document;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.validation.constraints.NotNull;
@@ -147,28 +148,20 @@ public class Account {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Account account = (Account) o;
+		return Objects.equals(id, account.id) &&
+				Objects.equals(walletAddress, account.walletAddress) &&
+				Objects.equals(accountName, account.accountName) &&
+				Objects.equals(currency, account.currency) &&
+				Objects.equals(transactions, account.transactions);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Account other = (Account) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+	public int hashCode() {
+		return Objects.hash(id, walletAddress, accountName, currency, transactions);
 	}
 
 	public static Account fromJSON(String message) {
