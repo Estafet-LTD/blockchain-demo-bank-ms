@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.couchbase.core.mapping.Document;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
