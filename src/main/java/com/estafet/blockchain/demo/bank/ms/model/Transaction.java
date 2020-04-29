@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Transaction implements Serializable {
+public class Transaction {
 
 	@NotNull
 	@Field("transaction_id")
