@@ -38,6 +38,7 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public Account createAccount(Account account) {
         account.setWalletAddress(blockchainGatewayService.generateWalletAddress().getAddress());
+        account.setId(String.valueOf((int)(999999999.0 * Math.random())));
         accountRepository.save(account);
         newAccountProducer.sendMessage(account);
         return account;

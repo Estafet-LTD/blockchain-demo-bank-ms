@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 public class Account {
 
 	@Id
-	private String id = String.valueOf((int)(999999999.0 * Math.random()));
+	private String id;
 
 	@NotNull
 	@Field
