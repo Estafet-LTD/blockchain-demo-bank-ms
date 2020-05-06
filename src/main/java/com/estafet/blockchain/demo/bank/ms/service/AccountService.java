@@ -11,7 +11,9 @@ public interface AccountService {
 
 	Account getAccount(String accountId);
 
-	void deleteAll();
+	Account delete(String accountId);
+	
+	Account[] deleteAll();
 
 	Account createAccount(Account account);
 

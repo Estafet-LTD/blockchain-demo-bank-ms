@@ -18,6 +18,7 @@ public interface AccountRepository extends CouchbasePagingAndSortingRepository<A
 
     Account findByWalletAddress(String walletAddress);
 
+    @SuppressWarnings("el-syntax")
     @Query(" #{#n1ql.selectEntity} where #{#n1ql.filter} and" +
             " any account_transaction IN transactions SATISFIES account_transaction.walletTransactionId = $1 END ")
     Account findByWalletTransactionId(String walletTransactionId);

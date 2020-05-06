@@ -1,10 +1,10 @@
 package com.estafet.blockchain.demo.bank.ms.model;
 
-import com.couchbase.client.java.repository.annotation.Field;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.Objects;
+
+import com.couchbase.client.java.repository.annotation.Field;
 
 public class Transaction {
 

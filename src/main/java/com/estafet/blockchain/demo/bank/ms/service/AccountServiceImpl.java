@@ -1,6 +1,7 @@
 package com.estafet.blockchain.demo.bank.ms.service;
 
 import com.estafet.blockchain.demo.bank.ms.jms.CurrencyConverterProducer;
+import com.estafet.blockchain.demo.bank.ms.jms.DeleteAccountProducer;
 import com.estafet.blockchain.demo.bank.ms.jms.NewAccountProducer;
 import com.estafet.blockchain.demo.bank.ms.model.Account;
 import com.estafet.blockchain.demo.bank.ms.model.Money;
@@ -17,13 +18,20 @@ import java.util.List;
 @Service
 public class AccountServiceImpl implements AccountService{
 
+	@Autowired
     private CurrencyConverterProducer currencyConverterProducer;
 
+	@Autowired
     private BlockchainGatewayService blockchainGatewayService;
 
+	@Autowired
     private AccountRepository accountRepository;
 
+	@Autowired
     private NewAccountProducer newAccountProducer;
+	
+	@Autowired
+	private DeleteAccountProducer deleteAccountProducer;
 
     @Override
     public Account getAccount(String accountId) {
@@ -31,8 +39,20 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public void deleteAll() {
-        accountRepository.deleteAll();
+	public Account delete(String accountId) {
+    	Account account = getAccount(accountId);
+    	accountRepository.delete(accountId);
+    	deleteAccountProducer.sendMessage(account);
+    	return account;
+	}
+
+	@Override
+    public Account[] deleteAll() {
+		List<Account> accounts = accountRepository.findAll();
+		for (Account account : accounts) {
+			delete(account.getId());	
+		}
+		return accounts.toArray(new Account[accounts.size()]);
     }
 
     @Override
@@ -94,23 +114,4 @@ public class AccountServiceImpl implements AccountService{
 
     }
 
-    @Autowired
-    public void setCurrencyConverterProducer(CurrencyConverterProducer currencyConverterProducer) {
-        this.currencyConverterProducer = currencyConverterProducer;
-    }
-
-    @Autowired
-    public void setBlockchainGatewayService(BlockchainGatewayService blockchainGatewayService) {
-        this.blockchainGatewayService = blockchainGatewayService;
-    }
-
-    @Autowired
-    public void setAccountRepository(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
-    }
-
-    @Autowired
-    public void setNewAccountProducer(NewAccountProducer newAccountProducer) {
-        this.newAccountProducer = newAccountProducer;
-    }
 }

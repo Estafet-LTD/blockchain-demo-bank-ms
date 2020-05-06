@@ -18,6 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.estafet.blockchain.demo.bank.ms.model.Account;
 import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentCurrencyConverterMessage;
 
 import io.restassured.RestAssured;
@@ -29,8 +30,9 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, CouchbaseTestExecutionListener.class })
 public class ITBankTest {
 
-	CurrencyConverterConsumer topic = new CurrencyConverterConsumer();
-
+	CurrencyConverterConsumer currencyConverterTopic = new CurrencyConverterConsumer();
+	NewAccountConsumer newAccountTopic = new NewAccountConsumer();
+	
 	@Before
 	public void before() {
 		RestAssured.baseURI = PropertyUtils.instance().getProperty("BANK_MS_SERVICE_URI");
@@ -38,7 +40,8 @@ public class ITBankTest {
 
 	@After
 	public void after() {
-		topic.closeConnection();
+		currencyConverterTopic.closeConnection();
+		newAccountTopic.closeConnection();
 	}
 
 	@Test
@@ -98,21 +101,27 @@ public class ITBankTest {
 				.body("walletAddress", is(not(nullValue())))
 				.body("accountName", is("Peter"))
 				.body("currency", is("EUR"));
+		
+		Account account = newAccountTopic.consume();
+		assertEquals("Peter", account.getAccountName());
+		assertEquals("EUR", account.getCurrency());
 	}
 
 	@Test
 	@BucketSetup("ITBankTest.json")
 	public void deleteExchangeRates() {
 		delete("accounts").then()
-		.statusCode(HttpURLConnection.HTTP_OK)
-		.body(is("Accounts Deleted"));
+			.statusCode(HttpURLConnection.HTTP_OK)
+			.body("id", hasItems("1000", "2000"))
+			.body("currency",  hasItems("USD", "GBP"));
+		
 	}
 	
 	@Test
 	@BucketSetup("ITBankTest.json")
 	public void testConsumeBankPayment() {
 		BankPaymentTopicProducer.send("{\"walletAddress\":\"efgh\",\"amount\":200.65,\"transactionId\":\"123456\"}");
-		BankPaymentCurrencyConverterMessage message = topic.consume();
+		BankPaymentCurrencyConverterMessage message = currencyConverterTopic.consume();
 		assertEquals("GBP", message.getCurrency());
 		assertEquals("123456", message.getTransactionId());
 		assertEquals("efgh", message.getWalletAddress());
@@ -128,7 +137,7 @@ public class ITBankTest {
 			.body("pending", is(false));	
 		
 		BankPaymentTopicProducer.send("{\"walletAddress\":\"efgh\",\"amount\":200.65,\"transactionId\":\"123456\"}");
-		topic.consume();
+		currencyConverterTopic.consume();
 		
 		get("/account/2000").then()
 			.statusCode(HttpURLConnection.HTTP_OK)

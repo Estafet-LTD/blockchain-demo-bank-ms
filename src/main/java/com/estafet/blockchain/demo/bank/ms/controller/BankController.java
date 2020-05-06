@@ -57,10 +57,14 @@ public class BankController {
 		return new ResponseEntity<Account>(accountService.debit(id, money), HttpStatus.OK);
 	}
 	
+	@DeleteMapping("/account/{id}")
+	public ResponseEntity<Account> deleteAccount(@PathVariable String id) {
+		return new ResponseEntity<Account>(accountService.delete(id), HttpStatus.OK);
+	}
+	
 	@DeleteMapping("/accounts")
-	public ResponseEntity<String> deleteAll() {
-		accountService.deleteAll();
-		return new ResponseEntity<String>("Accounts Deleted", HttpStatus.OK);
+	public ResponseEntity<Account[]> deleteAllAccounts() {
+		return new ResponseEntity<Account[]>(accountService.deleteAll(), HttpStatus.OK);
 	}
 	
 	
