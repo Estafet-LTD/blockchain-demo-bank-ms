@@ -32,6 +32,7 @@ public class ITBankTest {
 
 	CurrencyConverterConsumer currencyConverterTopic = new CurrencyConverterConsumer();
 	NewAccountConsumer newAccountTopic = new NewAccountConsumer();
+	DeleteAccountConsumer deleteAccountTopic = new DeleteAccountConsumer();
 	
 	@Before
 	public void before() {
@@ -42,6 +43,7 @@ public class ITBankTest {
 	public void after() {
 		currencyConverterTopic.closeConnection();
 		newAccountTopic.closeConnection();
+		deleteAccountTopic.closeConnection();
 	}
 
 	@Test
@@ -109,12 +111,17 @@ public class ITBankTest {
 
 	@Test
 	@BucketSetup("ITBankTest.json")
-	public void deleteExchangeRates() {
+	public void deleteAccounts() {
 		delete("accounts").then()
 			.statusCode(HttpURLConnection.HTTP_OK)
 			.body("id", hasItems("1000", "2000"))
 			.body("currency",  hasItems("USD", "GBP"));
-		
+		Account account1 = deleteAccountTopic.consume();
+		assertEquals("1000", account1.getId());
+		assertEquals("USD", account1.getCurrency());
+		Account account2 = deleteAccountTopic.consume();
+		assertEquals("2000", account2.getId());
+		assertEquals("GBP", account2.getCurrency());
 	}
 	
 	@Test
