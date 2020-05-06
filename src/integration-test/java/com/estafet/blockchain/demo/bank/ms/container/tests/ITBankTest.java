@@ -110,18 +110,31 @@ public class ITBankTest {
 	}
 
 	@Test
+	public void testGetAccounts() {
+		get("/accounts").then()
+			.statusCode(HttpURLConnection.HTTP_OK)
+			.body("id", hasItems("1000", "2000"))
+			.body("currency",  hasItems("USD", "GBP"));
+	}
+	
+	@Test
 	@BucketSetup("ITBankTest.json")
-	public void deleteAccounts() {
+	public void testDeleteAccounts() {
 		delete("accounts").then()
 			.statusCode(HttpURLConnection.HTTP_OK)
 			.body("id", hasItems("1000", "2000"))
 			.body("currency",  hasItems("USD", "GBP"));
+		
 		Account account1 = deleteAccountTopic.consume();
 		assertEquals("1000", account1.getId());
 		assertEquals("USD", account1.getCurrency());
 		Account account2 = deleteAccountTopic.consume();
 		assertEquals("2000", account2.getId());
 		assertEquals("GBP", account2.getCurrency());
+		
+		get("/accounts").then()
+			.statusCode(HttpURLConnection.HTTP_OK)
+			.body("id", hasSize(0));
 	}
 	
 	@Test

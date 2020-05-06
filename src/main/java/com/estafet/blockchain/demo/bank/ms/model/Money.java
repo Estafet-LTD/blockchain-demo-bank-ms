@@ -1,5 +1,8 @@
 package com.estafet.blockchain.demo.bank.ms.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Money {
 
 	private String walletTransactionId;
