@@ -110,6 +110,7 @@ public class ITBankTest {
 	}
 
 	@Test
+	@BucketSetup("ITBankTest.json")
 	public void testGetAccounts() {
 		get("/accounts").then()
 			.statusCode(HttpURLConnection.HTTP_OK)
@@ -126,11 +127,9 @@ public class ITBankTest {
 			.body("currency",  hasItems("USD", "GBP"));
 		
 		Account account1 = deleteAccountTopic.consume();
-		assertEquals("1000", account1.getId());
-		assertEquals("USD", account1.getCurrency());
+		assertTrue(account1.getId().equals("1000") || account1.getId().equals("2000"));
 		Account account2 = deleteAccountTopic.consume();
-		assertEquals("2000", account2.getId());
-		assertEquals("GBP", account2.getCurrency());
+		assertTrue(account2.getId().equals("1000") || account2.getId().equals("2000"));
 		
 		get("/accounts").then()
 			.statusCode(HttpURLConnection.HTTP_OK)
