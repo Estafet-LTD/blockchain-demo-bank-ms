@@ -1,0 +1,7 @@
+setup:
+
+  - name: create-couchbase-bucket
+    bucket: "{{ microservice.name }}"      
+    bucket_password: welcome1   
+    reset: false
+

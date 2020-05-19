@@ -1,0 +1,12 @@
+setup:
+
+  - name: create-couchbase-bucket
+    bucket: "{{ microservice.name }}"      
+    bucket_password: welcome1   
+    reset: true
+
+  - name: amq-setup
+    application_name: "{{ microservice.name }}"
+    amq_user: amq
+    amq_password: amq
+
