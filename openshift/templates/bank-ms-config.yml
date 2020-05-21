@@ -31,7 +31,6 @@ parameters:
   required: true  
 - description: Defines docker registry
   name: DOCKER_REGISTRY
-  value: docker-registry.default.svc:5000
   required: true      
 - description: Defines docker registry
   name: DOCKER_IMAGE_LABEL
