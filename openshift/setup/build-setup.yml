@@ -4,6 +4,7 @@ setup:
     bucket: "{{ microservice.name }}"      
     bucket_password: welcome1   
     reset: true
+    flush: true
 
   - name: amq-setup
     application_name: "{{ microservice.name }}"
