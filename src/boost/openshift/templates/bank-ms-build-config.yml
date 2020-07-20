@@ -9,18 +9,12 @@ parameters:
   required: true
 - description: Defines the namespace for the image stream for builder image
   name: IMAGESTREAM_NAMESPACE
-  value: openshift
   required: true  
-- description: Defines the location of the estafet github (change this if you have forked and want to use another github)
-  name: GITHUB
-  required: true
 - description: Defines name of the microservice
   name: MICROSERVICE
-  value: bank-ms
   required: true
 - description: Defines the git repository uri within which the microservice resides
   name: MICROSERVICE_REPO_URI
-  value: estafet-blockchain-demo-bank-ms
   required: true
 - description: Git branch/tag reference
   name: SOURCE_REPOSITORY_REF
@@ -38,7 +32,6 @@ parameters:
   required: true      
 - description: Maven mirror url
   name: MAVEN_MIRROR_URL
-  value: http://nexus.nexus.svc:8081/nexus/content/groups/public
   required: true              
 objects:
 - apiVersion: v1
@@ -80,7 +73,7 @@ objects:
     source:
       git:
         ref: ${SOURCE_REPOSITORY_REF}
-        uri: "https://github.com/${GITHUB}/${MICROSERVICE_REPO_URI}"
+        uri: ${MICROSERVICE_REPO_URI}
       type: Git
     strategy:
       sourceStrategy:
