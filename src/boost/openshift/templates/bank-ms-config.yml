@@ -50,7 +50,6 @@ objects:
       app: "${ENV}${MICROSERVICE}"
       product: ${PRODUCT}
       environment: ${ENV}
-      testStatus: untested
     name: "${ENV}${MICROSERVICE}"
     namespace: ${NAMESPACE}
   spec:
@@ -59,15 +58,6 @@ objects:
     selector:
       app: "${ENV}${MICROSERVICE}"
       deploymentconfig: "${ENV}${MICROSERVICE}"
-    strategy:
-      activeDeadlineSeconds: 21600
-      resources: {}
-      rollingParams:
-        intervalSeconds: 1
-        maxSurge: 25%
-        maxUnavailable: 25%
-        timeoutSeconds: 600
-        updatePeriodSeconds: 1
       type: Rolling
     template:
       metadata:
@@ -160,13 +150,10 @@ objects:
               requests:
                 cpu: ${MIN_CPU}
                 memory: ${MIN_MEMORY}
-            terminationMessagePath: /dev/termination-log
-            terminationMessagePolicy: File
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         schedulerName: default-scheduler
         securityContext: {}
-        terminationGracePeriodSeconds: 30
     test: false
     triggers:
       - imageChangeParams:
