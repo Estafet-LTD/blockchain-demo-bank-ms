@@ -57,6 +57,7 @@ objects:
     selector:
       app: "${ENV}${MICROSERVICE}"
       deploymentconfig: "${ENV}${MICROSERVICE}"
+    strategy:      
       type: Rolling
     template:
       metadata:
