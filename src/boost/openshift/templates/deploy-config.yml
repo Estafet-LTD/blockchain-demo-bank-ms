@@ -9,7 +9,6 @@ parameters:
   required: true
 - description: Defines name of the microservice
   name: MICROSERVICE
-  value: bank-ms
   required: true
 - description: Defines max memory
   name: MAX_MEMORY
