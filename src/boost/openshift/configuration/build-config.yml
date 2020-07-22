@@ -1,10 +1,10 @@
 config_map:
   - name: JBOSS_A_MQ_BROKER_URL
-    value: tcp://{{ microservice }}-amq-tcp.{{ project }}.svc:61616
+    value: tcp://{{ microservice.name }}-amq-tcp.{{ project }}.svc:61616
   - name: COUCHBASE_HOST
     value: couchbase.{{ project }}.svc
   - name: COUCHBASE_BUCKET
-    value: "{{ microservice }}-{{ project }}"
+    value: "{{ project }}-{{ microservice.name }}"
   - name: JAEGER_SERVICE_NAME
     value: build-{{ project }}
   - name: JAEGER_SAMPLER_TYPE
