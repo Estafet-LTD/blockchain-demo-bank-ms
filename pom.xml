@@ -39,10 +39,16 @@
 			<version>1.6.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.estafet.openshift.boost</groupId>
-			<artifactId>estafet-openshift-boost-couchbase-lib</artifactId>
-			<version>0.0.5</version>
+			<groupId>com.estafet.boostcd</groupId>
+			<artifactId>boostcd-couchbase-lib</artifactId>
+			<version>0.0.7</version>	
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.estafet.boostcd</groupId>
+			<artifactId>jms-lib</artifactId>
+			<version>0.0.2</version>
+			<scope>test</scope>
+		</dependency>			
 	</dependencies>
 </project>

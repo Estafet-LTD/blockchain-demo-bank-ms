@@ -1,7 +1,7 @@
 package com.estafet.blockchain.demo.bank.ms.container.tests;
 
 import com.estafet.blockchain.demo.bank.ms.model.Account;
-import com.estafet.openshift.boost.commons.lib.jms.TopicConsumer;
+import com.estafet.boostcd.jms.TopicConsumer;
 
 public class DeleteAccountConsumer extends TopicConsumer {
 

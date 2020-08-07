@@ -1,15 +1,19 @@
 package com.estafet.blockchain.demo.bank.ms.container.tests;
 
-import static org.junit.Assert.*;
+import static io.restassured.RestAssured.delete;
+import static io.restassured.RestAssured.get;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.net.HttpURLConnection;
 
-import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
-
-import com.estafet.openshift.boost.commons.lib.properties.PropertyUtils;
-import com.estafet.openshift.boost.couchbase.lib.annotation.BucketSetup;
-import com.estafet.openshift.boost.couchbase.lib.spring.CouchbaseTestExecutionListener;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,13 +21,16 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import com.estafet.blockchain.demo.bank.ms.model.Account;
 import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentCurrencyConverterMessage;
+import com.estafet.boostcd.commons.properties.PropertyUtils;
+import com.estafet.openshift.boost.couchbase.lib.annotation.BucketSetup;
+import com.estafet.openshift.boost.couchbase.lib.spring.CouchbaseTestExecutionListener;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
