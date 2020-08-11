@@ -1,11 +1,11 @@
 setup:
 
-  - name: create-couchbase-bucket
+  - name: boostcd.create_couchbase_bucket
     bucket: "{{ microservice.name }}"      
     bucket_password: welcome1   
     reset: true
     flush: true
 
-  - name: amq-setup
+  - name: boostcd.amq_setup
     application_name: "{{ microservice.name }}"
 

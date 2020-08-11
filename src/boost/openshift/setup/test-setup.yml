@@ -1,6 +1,6 @@
 setup:
 
-  - name: create-couchbase-bucket
+  - name: boostcd.create_couchbase_bucket
     bucket: "{{ microservice.name }}"      
     bucket_password: welcome1   
     reset: false
