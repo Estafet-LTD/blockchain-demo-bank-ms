@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.estafet.blockchain.demo</groupId>
 	<artifactId>estafet-blockchain-demo-bank-ms</artifactId>
-	<version>1.1.17</version>
+	<version>1.1.18-SNAPSHOT</version>
 
 	<parent>
 		<groupId>com.estafet.boostcd</groupId>
@@ -19,7 +19,7 @@
 	<scm>
 		<connection>scm:git:https://github.com/Estafet-LTD/blockchain-demo-bank-ms.git</connection>
 		<developerConnection>scm:git:https://github.com/Estafet-LTD/blockchain-demo-bank-ms.git</developerConnection>
-		<tag>estafet-blockchain-demo-bank-ms-1.1.17</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<dependencies>
